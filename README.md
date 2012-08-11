@@ -189,38 +189,38 @@ Create an instance of a user stream. [See here](https://dev.twitter.com/docs/api
 Upon establishing a User Stream connection, Twitter will send a preamble before starting regular message delivery. This preamble contains a list of the user's friends. 
 
 ### Event: 'block'
-* [user][#user] - Current user.
-* [user][#user] - Blocked user.
+* [user](#user) - Current user.
+* [user](#user) - Blocked user.
 * `Date` - Created at date.
 
 User blocks someone.
 
 ### Event: 'unblock'
-* [user][#user] - Current user.
-* [user][#user] - Blocked user.
+* [user](#user) - Current user.
+* [user](#user) - Blocked user.
 * `Date` - Created at date.
 
 User removes a block.
 
 ### Event: 'favorite'
-* [user][#user] - User that favorited the tweet.
-* [user][#user] - Author of the tweet.
-* [tweet][#tweet] - Favorited tweet.
+* [user](#user) - User that favorited the tweet.
+* [user](#user) - Author of the tweet.
+* [tweet](#tweet) - Favorited tweet.
 * `Date` - Created at date.
 
 User favorites a tweet.
 
 ### Event: 'unfavorite'
-* [user][#user] - User that favorited the tweet.
-* [user][#user] - Author of the tweet.
-* [tweet][#tweet] - Favorited tweet.
+* [user](#user) - User that favorited the tweet.
+* [user](#user) - Author of the tweet.
+* [tweet](#tweet) - Favorited tweet.
 * `Date` - Created at date.
 
 User unfavorites a tweet.
 
 ### Event: 'follow'
-* [user][#user] - Following user.
-* [user][#user] - Followed user.
+* [user](#user) - Following user.
+* [user](#user) - Followed user.
 * `Date` - Created at date.
 
 User follows someone.
