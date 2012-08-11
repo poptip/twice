@@ -382,7 +382,7 @@ Pool instances are proxied all events from all underlying site stream instances.
 Several events emit different response objects. Here you'll find examples of what they look like. [Go here](https://dev.twitter.com/docs/platform-objects "twitter objects") to read more details about each field in the objects.
 
 <a name="user" />
-### User
+### [User](https://dev.twitter.com/docs/platform-objects/users)
 
 ```js
 {
@@ -427,7 +427,7 @@ Several events emit different response objects. Here you'll find examples of wha
 }
 ```
 
-### Tweet
+### [Tweet](https://dev.twitter.com/docs/platform-objects/tweets)
 
 <a name="tweet" />
 ```js
