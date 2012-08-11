@@ -1,30 +1,30 @@
 {
-  "name": "ntwitter-stream",
+  "name": "stweam",
   "version": "0.0.1",
-  "description": "Better streaming API with for ntwitter",
+  "description": "Streaming client specifically designed for the Twitter streaming API",
   "main": "./lib/index.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
     "test": "mocha -R spec test/*-test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/markover/ntwitter-stream.git"
+    "url": "git://github.com/markover/stweam.git"
   },
   "keywords": [
     "twitter",
     "stream"
   ],
   "dependencies": {
-    "underscore": "~1.3.3"
+    "underscore": "~1.3.3",
+    "ntwitter": "~0.4.0",
+    "timequeue": "~0.1.1",
+    "jstream": "~0.2.0",
+    "eventyoshi": "~0.1.4"
   },
   "devDependencies": {
     "mocha": "x",
-    "nock": "~0.13.3",
-    "ntwitter": "~0.4.0"
+    "nock": "~0.13.3"
   },
   "author": "PopTip (http://poptip.com)",
-  "license": "MIT"
+  "private": true
 }
