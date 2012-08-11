@@ -515,9 +515,9 @@ npm test
 ```
 
 # Links
-https://dev.twitter.com/docs/streaming-apis
-https://dev.twitter.com/docs/streaming-apis/connecting
-https://dev.twitter.com/docs/streaming-apis/messages
-https://dev.twitter.com/docs/streaming-apis/parameters
-https://dev.twitter.com/docs/platform-objects
-https://dev.twitter.com/docs/twitter-ids-json-and-snowflake
+* https://dev.twitter.com/docs/streaming-apis
+* https://dev.twitter.com/docs/streaming-apis/connecting
+* https://dev.twitter.com/docs/streaming-apis/messages
+* https://dev.twitter.com/docs/streaming-apis/parameters
+* https://dev.twitter.com/docs/platform-objects
+* https://dev.twitter.com/docs/twitter-ids-json-and-snowflake
