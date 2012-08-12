@@ -298,7 +298,7 @@ User updates their profile.
 
 <a name="sitestream" />
 ### Stweam#createSiteStream([follow], [parameters])
-Create an instance of a site stream. `follow` can be an Array of twitter IDs to initially add to the stream when it first connects. If `follow` has more users than the allowed users to connect with, they will be queued to be added later. [See here](https://dev.twitter.com/docs/api/2b/get/site) for a list of parameters.
+Create an instance of a site stream. `follow` can be an Array of twitter IDs to initially add to the stream when it first connects. If `follow` has more users than the allowed users to connect with, they will be queued to be added later. [See here](https://dev.twitter.com/docs/api/2b/get/site) for a list of parameters. Access is restricted.
 
 ### SiteStream#addUser(twitterID)
 Add a user to the stream.
