@@ -244,39 +244,39 @@ User deletes a list.
 User edits a list.
 
 ### Event: 'list_member_add'
-* [user][#user] - Adding user.
-* [user][#user] - Added user.
+* [user](#user) - Adding user.
+* [user](#user) - Added user.
 * `list`
 * `Date` - Created at date.
 
 User adds someone to a list.
 
 ### Event: 'list_member_remove'
-* [user][#user] - Removing user.
-* [user][#user] - Removed user.
+* [user](#user) - Removing user.
+* [user](#user) - Removed user.
 * `list`
 * `Date` - Created at date.
 
 User removes someone from a list.
 
 ### Event: 'list_user_subscribe'
-* [user][#user] - Subscribing user.
-* [user][#user] - List owner.
+* [user](#user) - Subscribing user.
+* [user](#user) - List owner.
 * `list`
 * `Date` - Created at date.
 
 User subscribes to a list.
 
 ### Event: 'list_user_unsubscribe'
-* [user][#user] - Unsubscribing user.
-* [user][#user] - List owner.
+* [user](#user) - Unsubscribing user.
+* [user](#user) - List owner.
 * `list`
 * `Date` - Created at date.
 
 User unsubscribes from a list.
 
 ### Event: 'user_update'
-* [user][#user] - New profile data.
+* [user](#user) - New profile data.
 * `Date` - Created at date.
 
 User updates their profile.
