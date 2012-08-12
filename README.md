@@ -9,8 +9,10 @@ This module contains several data structures that ease working with twitter stre
 * Back off linearly or exponentially depending on error type when reconnecting.
 * Respect Twitter's limits when adding users to a site stream.
 * Make sure users are added to site streams with an extra request.
+* If there is an HTTP error adding a user to a site stream, retries with exponential timeouts.
 * Automatically manage a pool of site streams creating new streams as needed.
 * Convenient events emitted for various tweet types.
+* Uses a streaming JSON parser for faster less memory hogging processing.
 
 # Usage
 
