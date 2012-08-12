@@ -58,11 +58,13 @@ First argument must be an object with oauth credentials.
 Stweam currently extends the [ntwitter](https://github.com/AvianFlu/ntwitter) library. All methods added are specifically designed to facilitate usage of Twitter streams.
 
 * [Stweam#createPublicStream](#publicstream)
+* [Stweam#createSampleStream](#samplestream)
+* [Stweam#createFirehose](#firehose)
 * [Stweam#createUserStream](#userstream)
 * [Stweam#createSiteStream](#sitestream)
 * [Stweam#createPool](#pool)
 
-All streams have a `connected` key indicating if the stream is currently connected.
+All streams have a `connected` key indicating if the stream is currently connected. Constructors last argument can be an object of parameters. [See here](https://dev.twitter.com/docs/api/2/get/user) for a list of parameters and their descriptions.
 
 ### Events
 All streams emit the following events.
@@ -178,7 +180,17 @@ Convenient event for listening for replies to a certain user.
 
 <a name="publicstream" />
 ### Stweam#createPublicStream(parameters)
-Create an instance of a public stream. [See here](https://dev.twitter.com/docs/api/2/get/user) for a list of parameters.
+Create an instance of a public stream. 
+
+
+<a name="samplestream" />
+### Stweam#createSampleStream(parameters)
+Create an instance of a sample stream. Emits random sample of public statuses.
+
+
+<a name="firehose" />
+### Stweam#createFirehose(parameters)
+Create an instance of a firehose. Emits all public tweets. Requires special permission to use.
 
 
 <a name="userstream" />
