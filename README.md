@@ -75,9 +75,13 @@ All streams emit the following events.
 
 Stream has connected. This is also emitted if it's a reconnection.
 
+### Event: 'beforeConnect'
+
+Emitted right before a connection is made.
+
 ### Event: 'reconnect'
 
-Emitted before a reconnection is made.
+Emitted right before a reconnection is made.
 
 ### Event: 'disconnect'
 
