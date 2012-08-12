@@ -91,6 +91,10 @@ Stream was disconnected.
 
 Stream was destroyed.
 
+### Event: 'timeout'
+
+Stream has timed out and will be reconnecting soon.
+
 ### Event: 'retry'
 * `string` - Algorithm. Either `linear` or `exponential`.
 * `string` - Method.
@@ -105,10 +109,6 @@ There was an error calling a method. This indicates the method will be called ag
 * `string` - Method. So far only `reconnect` and `addUsers` are retried.
 
 This is emitted if the maximum retry is reached for a method with a certain algorithm. At which point you can pause the stream or whatever until you figure out what went wrong.
-
-### Event: 'timeout'
-
-Stream has timed out and will be reconnecting soon.
 
 ### Event: 'data'
 * `Object` - Contains all of the data from the message received.
