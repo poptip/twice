@@ -69,7 +69,7 @@ pool.on('reply', function(data) {
   * [Event: 'tweet:@reply:`in_reply_to_screen_name`'](#event-tweetreplyin_reply_to_screen_name)
 * [Stweam#createPublicStream([parameters])](#stweamcreatepublicstreamparameters)
 * [Stweam#createSampleStream([parameters])](#stweamcreatesamplestreamparameters)
-* [Stweam#createFirehose([parameters])](#stweamcreatefirehoseparameters
+* [Stweam#createFirehose([parameters])](#stweamcreatefirehoseparameters)
 * [Stweam#createUserStream([parameters])](#stweamcreateuserstreamparameters)
   * [Event: 'friends'](#event-friends)
   * [Event: 'block'](#event-block)
