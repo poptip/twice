@@ -44,64 +44,63 @@ pool.on('reply', function(data) {
 
 # API
 
-* [new Stweam(credentials)](#new_stweam)
-  * [Event: 'connect'](#event_connect)
-  * [Event: 'beforeConnect'](#event_beforeConnect)
-  * [Event: 'reconnect'](#event_reconnect)
-  * [Event: 'disconnect'](#event_disconnect)
-  * [Event: 'destroy'](#event_destroy)
-  * [Event: 'timeout'](#event_timeout)
-  * [Event: 'retry'](#event_retry)
-  * [Event: 'retryMax'](#event_retryMax)
-  * [Event: 'data'](#event_data)
-  * [Event: 'warning'](#limit_warning)
-  * [Event: 'delete'](#limit_delete)
-  * [Event: 'scrub_geo'](#limit_scrub_geo)
-  * [Event: 'limit'](#event_limit)
-  * [Event: 'status_withheld'](#event_status_withheld)
-  * [Event: 'user_withheld'](#event_user_withheld)
-  * [Event: 'tweet'](#event_tweet)
-  * [Event: 'tweet:retweet'](#event_tweet_retweet)
-  * [Event: 'tweet:retweet:`retweeted_status.id`'](#event_tweet_retweet_retweeted_status_id)
-  * [Event: 'tweet:reply'](#event_tweet_reply)
-  * [Event: 'tweet:reply:`in_reply_to_status_id`'](#event_tweet_reply_in_reply_to_status_id)
-  * [Event: 'tweet:@reply'](#event_at_reply)
-  * [Event: 'tweet:@reply:`in_reply_to_screen_name`'](#event_at_reply_in_reply_to_screen_name)
-* [Stweam#createPublicStream([parameters])](#publicstream)
-* [Stweam#createSampleStream([parameters])](#samplestream)
-* [Stweam#createFirehose([parameters])](#firehose)
-* [Stweam#createUserStream([parameters])](#userstream)
-  * [Event: 'friends'](#event_friends)
-  * [Event: 'block'](#event_block)
-  * [Event: 'unblock'](#event_unblock)
-  * [Event: 'favorite'](#event_favorite)
-  * [Event: 'unfavorite'](#event_unfavorite)
-  * [Event: 'follow'](#event_follow)
-  * [Event: 'list_create'](#event_list_create)
-  * [Event: 'list_destroy'](#event_list_destroy)
-  * [Event: 'list_update'](#event_list_update)
-  * [Event: 'list_member_add'](#event_list_member_add)
-  * [Event: 'list_member_remove'](#event_list_member_remove)
-  * [Event: 'list_user_subscribe'](#event_list_user_subscribe)
-  * [Event: 'list_user_unsubscribe'](#event_list_user_unsubscribe)
-  * [Event: 'user_update'](#event_user_update)
-* [Stweam#createSiteStream([follow], [parameters])](#sitestream)
-  * [SiteStream#addUser(twitterID)](#sitestream_addUser)
-  * [SiteStream#addUsers(twitterIDs)](#sitestream_addUsers)
-  * [SiteStream#removeUser(twitterID, [callback(err)])](#sitestream_removeUser)
-  * [SiteStream#userCount()](#sitestream_userCount)
-  * [SiteStream#hasUser(twitterID)](#sitestream_hasUser)
-  * [SiteStream#info(callback(err, info))](#sitestream_info)
-  * [Event: 'addUsers'](#event_addUsers)
-  * [Event: 'failedToAdd'](#event_failedToAdd)
-  * [Event: 'removeUser'](#event_removeUser)
-* [Stweam#createPool(options)](#pool)
-  * [Pool#addUser](twitterID, queue)
-  * [Pool#addUsers](twitterIDs)
-  * [Pool#removeUser](twitterID)
-  * [Pool#hasUser](twitterID)
+* [new Stweam(credentials)](#new-stweam)
+  * [Event: 'connect'](#event-connect)
+  * [Event: 'beforeConnect'](#event-beforeconnect)
+  * [Event: 'reconnect'](#event-reconnect)
+  * [Event: 'disconnect'](#event-disconnect)
+  * [Event: 'destroy'](#event-destroy)
+  * [Event: 'timeout'](#event-timeout)
+  * [Event: 'retry'](#event-retry)
+  * [Event: 'retryMax'](#event-retrymax)
+  * [Event: 'data'](#event-data)
+  * [Event: 'warning'](#event-warning)
+  * [Event: 'delete'](#event-delete)
+  * [Event: 'scrub_geo'](#event-scrub_geo)
+  * [Event: 'limit'](#event-limit)
+  * [Event: 'status_withheld'](#event-status_withheld)
+  * [Event: 'user_withheld'](#event-user_withheld)
+  * [Event: 'tweet'](#event-tweet)
+  * [Event: 'tweet:retweet'](#event-tweetretweet)
+  * [Event: 'tweet:retweet:`retweeted_status.id`'](#event-tweetretweetretweeted_status_id)
+  * [Event: 'tweet:reply'](#event-tweetreply)
+  * [Event: 'tweet:reply:`in_reply_to_status_id`'](#event-tweetreplyin_reply_to_status_id)
+  * [Event: 'tweet:@reply'](#event-tweetreply-1)
+  * [Event: 'tweet:@reply:`in_reply_to_screen_name`'](#event-tweetreplyin_reply_to_screen_name)
+* [Stweam#createPublicStream([parameters])](#stweamcreatepublicstreamparameters)
+* [Stweam#createSampleStream([parameters])](#stweamcreatesamplestreamparameters)
+* [Stweam#createFirehose([parameters])](#stweamcreatefirehoseparameters
+* [Stweam#createUserStream([parameters])](#stweamcreateuserstreamparameters)
+  * [Event: 'friends'](#event-friends)
+  * [Event: 'block'](#event-block)
+  * [Event: 'unblock'](#event-unblock)
+  * [Event: 'favorite'](#event-favorite)
+  * [Event: 'unfavorite'](#event-unfavorite)
+  * [Event: 'follow'](#event-follow)
+  * [Event: 'list_create'](#event-list_create)
+  * [Event: 'list_destroy'](#event-list_destroy)
+  * [Event: 'list_update'](#event-list_update)
+  * [Event: 'list_member_add'](#event-list_member_add)
+  * [Event: 'list_member_remove'](#event-list_member_remove)
+  * [Event: 'list_user_subscribe'](#event-list_user_subscribe)
+  * [Event: 'list_user_unsubscribe'](#event-list_user_unsubscribe)
+  * [Event: 'user_update'](#event-user_update)
+* [Stweam#createSiteStream([follow], [parameters])](#stweamcreatesitestreamfollow)
+  * [SiteStream#addUser(twitterID)](#sitestreamaddusertwitterid)
+  * [SiteStream#addUsers(twitterIDs)](#sitestreamadduserstwitterids)
+  * [SiteStream#removeUser(twitterID, [callback(err)])](#sitestreamremoveusertwitterid-callbackerr)
+  * [SiteStream#userCount()](#sitestreamusercount)
+  * [SiteStream#hasUser(twitterID)](#sitestreamhasusertwitterid)
+  * [SiteStream#info(callback(err, info))](#sitestreaminfocallbackerr-info)
+  * [Event: 'addUsers'](#event-addusers)
+  * [Event: 'failedToAdd'](#event-failedtoadd)
+  * [Event: 'removeUser'](#event-removeuser)
+* [Stweam#createPool(options)](#stweamcreatepool)
+  * [Pool#addUser(twitterID, queue)](#pooladdusertwitterid-queue)
+  * [Pool#addUsers(twitterIDs)](#pooladduserstwitterids)
+  * [Pool#removeUser(twitterID)](#poolremoveusertwitterid)
+  * [Pool#hasUser(twitterID)](#poolhasusertwitterid)
 
-<a name="new_stweam" />
 ### new Stweam(credentials)
 
 First argument must be an object with oauth credentials.
@@ -122,37 +121,30 @@ All streams have a `connected` key indicating if the stream is currently connect
 ### Events
 All streams emit the following events.
 
-<a name="event_connect" />
 ### Event: 'connect'
 
 Stream has connected. This is also emitted if it's a reconnection.
 
-<a name="event_beforeConnect" />
 ### Event: 'beforeConnect'
 
 Emitted right before a connection is made.
 
-<a name="event_reconnect" />
 ### Event: 'reconnect'
 
 Emitted right before a reconnection is made.
 
-<a name="event_disconnect" />
 ### Event: 'disconnect'
 
 Stream was disconnected.
 
-<a name="event_destroy" />
 ### Event: 'destroy'
 
 Stream was destroyed.
 
-<a name="event_timeout" />
 ### Event: 'timeout'
 
 Stream has timed out and will be reconnecting soon.
 
-<a name="event_retry" />
 ### Event: 'retry'
 * `string` - Algorithm. Either `linear` or `exponential`.
 * `string` - Method.
@@ -162,20 +154,17 @@ Stream has timed out and will be reconnecting soon.
 
 There was an error calling a method. This indicates the method will be called again.
 
-<a name="event_retryMax" />
 ### Event: 'retryMax'
 * `string` - Algorithm. Either `linear` or `exponential`.
 * `string` - Method. So far only `reconnect` and `addUsers` are retried.
 
 This is emitted if the maximum retry is reached for a method with a certain algorithm. At which point you can pause the stream or whatever until you figure out what went wrong.
 
-<a name="event_data" />
 ### Event: 'data'
 * `Object` - Contains all of the data from the message received.
 
 This event is emitted every time a full JSON object is received from twitter. Useful for debugging.
 
-<a name="event_warning" />
 ### Event: 'warning'
 * `string` - Code, ex: `FALLING_BEHIND`.
 * `string` - Message.
@@ -183,27 +172,23 @@ This event is emitted every time a full JSON object is received from twitter. Us
 
 Emitted when the client is falling behind on reading tweets. Will occur a maximum of about once in 5 minutes. It really should not happen because this is node, come on.
 
-<a name="event_delete" />
 ### Event: 'delete'
 * `number` - ID of status to delete.
 * `number` - User for which status belongs to.
 
 These messages indicate that a given Tweet has been deleted. Client code must honor these messages by clearing the referenced Tweet from memory and any storage or archive, even in the rare case where a deletion message arrives earlier in the stream that the Tweet it references.
 
-<a name="event_scrub_geo" />
 ### Event: 'scrub_geo'
 * `string` - The ID of the user.
 * `string` - Up to which status to scrub geo info from.
 
 These messages indicate that geolocated data must be stripped from a range of Tweets. Clients must honor these messages by deleting geocoded data from Tweets which fall before the given status ID and belong to the specified user. These messages may also arrive before a Tweet which falls into the specified range, although this is rare.
 
-<a name="event_limit" />
 ### Event: 'limit'
 * `number` - Number of undelivered tweets.
 
 These messages indicate that a filtered stream has matched more Tweets than its current rate limit allows to be delivered. Limit notices contain a total count of the number of undelivered Tweets since the connection was opened, making them useful for tracking counts of track terms, for example. Note that the counts do not specify which filter predicates undelivered messages matched.
 
-<a name="event_status_withheld" />
 ### Event: 'status_withheld'
 * `string` - ID of status.
 * `string` - ID of user.
@@ -211,82 +196,68 @@ These messages indicate that a filtered stream has matched more Tweets than its 
 
 Indicates a status has been withheld in certain countries.
 
-<a name="event_user_withheld" />
 ### Event: 'user_withheld'
 * `string` - ID of user.
 * `Array.string` - An array of two-letter country codes.
 
 Indicates a user has been withheld in certain countries.
 
-<a name="event_tweet" />
 ### Event: 'tweet'
 * [tweet](#tweet)
 
 Someone tweets!
 
-<a name="event_tweet_retweet" />
 ### Event: 'tweet:retweet'
 * [tweet](#tweet)
 
 Someone retweeted a tweet. Only emitted when it's a retweet through the API and not a manual retweet ie `RT: hello world`.
 
-<a name="event_tweet_retweet_retweeted_status_id" />
 ### Event: 'tweet:retweet:`retweeted_status.id`'
 * [tweet](#tweet)
 
 Convenient event for listening for retweets of a certain tweet.
 
-<a name="event_tweet_reply" />
 ### Event: 'tweet:reply'
 * [tweet](#tweet)
 
 Someone replied to a tweet.
 
-<a name="event_tweet_reply_in_reply_to_status_id" />
 ### Event: 'tweet:reply:`in_reply_to_status_id`'
 * [tweet](#tweet)
 
 Convenient event for listening for replies of a certain tweet.
 
-<a name="event_at_tweet" />
 ### Event: 'tweet:@reply'
 * [tweet](#tweet)
 
 Someone replied to another user. Emitted even if the user is mentioned manually.
 
-<a name="event_at_tweet_in_reply_to_screen_name" />
 ### Event: 'tweet:@reply:`in_reply_to_screen_name`'
 * [tweet](#tweet)
 
 Convenient event for listening for replies to a certain user.
 
 
-<a name="publicstream" />
 ### Stweam#createPublicStream([parameters])
 Create an instance of a public stream.
 
 
-<a name="samplestream" />
 ### Stweam#createSampleStream([parameters])
 Create an instance of a sample stream. Emits random sample of public statuses.
 
 
-<a name="firehose" />
 ### Stweam#createFirehose([parameters])
 Create an instance of a firehose. Emits all public tweets. Requires special permission to use.
 
 
-<a name="userstream" />
 ### Stweam#createUserStream([parameters])
 Create an instance of a user stream. [See here](https://dev.twitter.com/docs/api/2/get/user) for a list of parameters.
 
-<a name="event_friends" />
 ### Event: 'friends'
 * `Array.string` - An array of user IDs.
 
 Upon establishing a User Stream connection, Twitter will send a preamble before starting regular message delivery. This preamble contains a list of the user's friends. 
 
-<a name="event_block" />
 ### Event: 'block'
 * [user](#user) - Current user.
 * [user](#user) - Blocked user.
@@ -294,7 +265,6 @@ Upon establishing a User Stream connection, Twitter will send a preamble before 
 
 User blocks someone.
 
-<a name="event_unblock" />
 ### Event: 'unblock'
 * [user](#user) - Current user.
 * [user](#user) - Blocked user.
@@ -302,7 +272,6 @@ User blocks someone.
 
 User removes a block.
 
-<a name="event_favorite" />
 ### Event: 'favorite'
 * [user](#user) - User that favorited the tweet.
 * [user](#user) - Author of the tweet.
@@ -311,7 +280,6 @@ User removes a block.
 
 User favorites a tweet.
 
-<a name="event_unfavorite" />
 ### Event: 'unfavorite'
 * [user](#user) - User that favorited the tweet.
 * [user](#user) - Author of the tweet.
@@ -320,7 +288,6 @@ User favorites a tweet.
 
 User unfavorites a tweet.
 
-<a name="event_follow" />
 ### Event: 'follow'
 * [user](#user) - Following user.
 * [user](#user) - Followed user.
@@ -328,28 +295,24 @@ User unfavorites a tweet.
 
 User follows someone.
 
-<a name="event_list_create" />
 ### Event: 'list_create'
 * `list`
 * `Date` - Created at date.
 
 User creates a list.
 
-<a name="event_list_destroy" />
 ### Event: 'list_destroy'
 * `list`
 * `Date` - Created at date.
 
 User deletes a list.
 
-<a name="event_list_update" />
 ### Event: 'list_update'
 * `list`
 * `Date` - Created at date.
 
 User edits a list.
 
-<a name="event_list_member_add" />
 ### Event: 'list_member_add'
 * [user](#user) - Adding user.
 * [user](#user) - Added user.
@@ -358,7 +321,6 @@ User edits a list.
 
 User adds someone to a list.
 
-<a name="event_list_member_remove" />
 ### Event: 'list_member_remove'
 * [user](#user) - Removing user.
 * [user](#user) - Removed user.
@@ -367,7 +329,6 @@ User adds someone to a list.
 
 User removes someone from a list.
 
-<a name="event_list_user_subscribe" />
 ### Event: 'list_user_subscribe'
 * [user](#user) - Subscribing user.
 * [user](#user) - List owner.
@@ -376,7 +337,6 @@ User removes someone from a list.
 
 User subscribes to a list.
 
-<a name="event_list_user_unsubscribe" />
 ### Event: 'list_user_unsubscribe'
 * [user](#user) - Unsubscribing user.
 * [user](#user) - List owner.
@@ -385,7 +345,6 @@ User subscribes to a list.
 
 User unsubscribes from a list.
 
-<a name="event_user_update" />
 ### Event: 'user_update'
 * [user](#user) - New profile data.
 * `Date` - Created at date.
@@ -393,31 +352,24 @@ User unsubscribes from a list.
 User updates their profile.
 
 
-<a name="sitestream" />
 ### Stweam#createSiteStream([follow], [parameters])
 Create an instance of a site stream. `follow` can be an Array of twitter IDs to initially add to the stream when it first connects. If `follow` has more users than the allowed users to connect with, they will be queued to be added later. [See here](https://dev.twitter.com/docs/api/2b/get/site) for a list of parameters. Access is restricted.
 
-<a name="sitestream_addUser" />
 ### SiteStream#addUser(twitterID)
 Add a user to the stream.
 
-<a name="sitestream_addUsers" />
 ### SiteStream#addUsers(twitterIDs)
 Add several users to the stream.
 
-<a name="sitestream_removeUser" />
 ### SiteStream#removeUser(twitterID, [callback(err)])
 Remove a user from the stream.
 
-<a name="sitestream_userCount" />
 ### SiteStream#userCount()
 Returns the number of users in stream, including the number of queued users that are going to be added to the stream.
 
-<a name="sitestream_hasUser" />
 ### SiteStream#hasUser(twitterID)
 Returns true if user is in site stream.
 
-<a name="sitestream_info" />
 ### SiteStream#info(callback(err, info))
 Gets information about the stream from twitter. Sample:
 
@@ -449,27 +401,23 @@ For example, the event `friends` would be emitted like this: `function (userid, 
 
 In addition, an event with the user's Twittter ID appended to the event name is emitted. For user with an ID of `1234` the event `friends:1234` would be emitted with `friends` as the first argument.
 
-<a name="event_addUsers" />
 ### Event: 'addUsers'
 * `Array.string` - Array of user IDs.
 * `Object` - Contains user IDs as keys with their respective screen names as values.
 
 When a batch of users are successfully added to this site stream. Users are checked that they've been actually added using the `SiteStream#info()` method.
 
-<a name="event_failedToAdd" />
 ### Event: 'failedToAdd'
 * `Array.string` - Array of user IDs.
 
 If there was a user did not show up in the `SiteStream#info()` call after sending a request to add that user, they will show up here.
 
-<a name="event_removeUser" />
 ### Event: 'removeUser'
 * `string` - User ID.
 
 After a call to `SiteStream#remove()`, either this or an `error` event will be emitted, even if a callback was given to the method.
 
 
-<a name="pool" />
 ### Stweam#createPool([options])
 Creates an instance of a site stream pool. Automatically creates and removes site streams as needed respecting twitter's request demands. `client` must be an instance of ntwitter. Options defaults to
 
@@ -481,19 +429,15 @@ Creates an instance of a site stream pool. Automatically creates and removes sit
 }
 ```
 
-<a name="pool_addUser" />
 ### Pool#addUser(twitterID, queue)
 Adds a user to the pool. Set `queue` to true if you want to queue this user to be added after `options.addUserTimeout` in case there might be more users in the queue later. This saves making unnecessary requests to twitter.
 
-<a name="pool_addUsers" />
 ### Pool#addUsers(twitterIDs)
 Add several users to the pool at once.
 
-<a name="pool_removeUser" />
 ### Pool#removeUser(twitterID)
 Remove a user from pool.
 
-<a name="pool_hasUser" />
 ### Pool#hasUser(twitterID)
 Returns true if user has been added to pool.
 
@@ -505,7 +449,6 @@ Pool instances are proxied all events from all underlying site stream instances.
 
 Several events emit different response objects. Here you'll find examples of what they look like. [Go here](https://dev.twitter.com/docs/platform-objects "twitter objects") to read more details about each field in the objects.
 
-<a name="user" />
 ### [User](https://dev.twitter.com/docs/platform-objects/users)
 
 ```js
@@ -553,7 +496,6 @@ Several events emit different response objects. Here you'll find examples of wha
 
 ### [Tweet](https://dev.twitter.com/docs/platform-objects/tweets)
 
-<a name="tweet" />
 ```js
 {
   "entities" : {
