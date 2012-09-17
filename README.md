@@ -85,7 +85,7 @@ pool.on('reply', function(data) {
   * [Event: 'list_user_subscribe'](#event-list_user_subscribe)
   * [Event: 'list_user_unsubscribe'](#event-list_user_unsubscribe)
   * [Event: 'user_update'](#event-user_update)
-* [Stweam#createSiteStream([follow], [parameters])](#stweamcreatesitestreamfollow)
+* [Stweam#createSiteStream([follow], [parameters])](#stweamcreatesitestreamfollow-parameters)
   * [SiteStream#addUser(twitterID)](#sitestreamaddusertwitterid)
   * [SiteStream#addUsers(twitterIDs)](#sitestreamadduserstwitterids)
   * [SiteStream#removeUser(twitterID, [callback(err)])](#sitestreamremoveusertwitterid-callbackerr)
@@ -95,11 +95,12 @@ pool.on('reply', function(data) {
   * [Event: 'addUsers'](#event-addusers)
   * [Event: 'failedToAdd'](#event-failedtoadd)
   * [Event: 'removeUser'](#event-removeuser)
-* [Stweam#createPool(options)](#stweamcreatepool)
+* [Stweam#createPool(options)](#stweamcreatepooloptions)
   * [Pool#addUser(twitterID, queue)](#pooladdusertwitterid-queue)
   * [Pool#addUsers(twitterIDs)](#pooladduserstwitterids)
   * [Pool#removeUser(twitterID)](#poolremoveusertwitterid)
   * [Pool#hasUser(twitterID)](#poolhasusertwitterid)
+  * [Pool#simulate(tweet, [twitterID])(#poolsimulatetweet-twitterid)
 
 ### new Stweam(credentials)
 
@@ -440,6 +441,9 @@ Remove a user from pool.
 
 ### Pool#hasUser(twitterID)
 Returns true if user has been added to pool.
+
+### Pool#simulate(tweet, [twitterID])
+Simulates a tweet coming in from twitter. Useful if you get tweets through the REST API and want to emit it through the pool.
 
 ### Events
 Pool instances are proxied all events from all underlying site stream instances.
