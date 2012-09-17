@@ -100,7 +100,7 @@ pool.on('reply', function(data) {
   * [Pool#addUsers(twitterIDs)](#pooladduserstwitterids)
   * [Pool#removeUser(twitterID)](#poolremoveusertwitterid)
   * [Pool#hasUser(twitterID)](#poolhasusertwitterid)
-  * [Pool#simulate(tweet, [twitterID])(#poolsimulatetweet-twitterid)
+  * [Pool#simulate(tweet, [twitterID])](#poolsimulatetweet-twitterid)
 
 ### new Stweam(credentials)
 
