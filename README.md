@@ -1,6 +1,6 @@
 # stweam
 
-![tweety](https://github.com/markover/stweam/raw/master/tweety.gif)
+![tweety](https://github.com/poptip/stweam/raw/master/tweety.gif)
 
 This module contains several data structures that ease working with twitter streams. In particular, a site stream pool is available that auto manages several site streams as needed and respects twitter's request limits. Includes stream reconnecting with exponential backoff to keep your streams running forever.
 
