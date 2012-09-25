@@ -95,6 +95,7 @@ pool.on('reply', function(data) {
   * [Event: 'addUsers'](#event-addusers)
   * [Event: 'failedToAdd'](#event-failedtoadd)
   * [Event: 'removeUser'](#event-removeuser)
+  * [Event: 'token revoked'](#event-token-revoked)
 * [Stweam#createPool(options)](#stweamcreatepooloptions)
   * [Pool#addUser(twitterID, queue)](#pooladdusertwitterid-queue)
   * [Pool#addUsers(twitterIDs)](#pooladduserstwitterids)
@@ -417,6 +418,12 @@ If there was a user did not show up in the `SiteStream#info()` call after sendin
 * `string` - User ID.
 
 After a call to `SiteStream#remove()`, either this or an `error` event will be emitted, even if a callback was given to the method.
+
+### Event: 'token revoked'
+* `string` - Code of the event.
+* `string` - Stream name.
+
+A user has revoked access to your app.
 
 
 ### Stweam#createPool([options])
