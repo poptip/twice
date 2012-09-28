@@ -1,7 +1,7 @@
 /**
  * This file opens a sample stream and prints its data.
  * Run this file as to get a taste of what twitter will emit.
- * You'll need to set your twitter oauth credentails in a file `config.json`
+ * You'll need to set your Twitter OAuth credentials in a file `config.json`
  */
 var Stweam = require('..');
 var config = require('./config.json');
