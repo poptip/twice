@@ -420,8 +420,11 @@ If there was a user did not show up in the `SiteStream#info()` call after sendin
 After a call to `SiteStream#remove()`, either this or an `error` event will be emitted, even if a callback was given to the method.
 
 ### Event: 'token revoked'
-* `string` - Code of the event.
+* `string` - User Twitter ID.
+* `string` - User Twitter handle.
 * `string` - Stream name.
+* `string` - Twitter handle for which this site stream belongs to.
+* `number` - Code of the event.
 
 A user has revoked access to your app.
 
