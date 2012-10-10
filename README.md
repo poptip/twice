@@ -45,6 +45,12 @@ pool.on('reply', function(data) {
 # API
 
 * [new Stweam(credentials)](#new-stweam)
+* [Stream](#stream)
+  * [Stream#connected](#stream-connected)
+  * [Stream#paused](#stream-paused)
+  * [Stream#pause](#stream-pause)
+  * [Stream#resume](#stream-resume)
+  * [Stream#destroy](#stream-destroy)
   * [Event: 'connect'](#event-connect)
   * [Event: 'beforeConnect'](#event-beforeconnect)
   * [Event: 'reconnect'](#event-reconnect)
@@ -119,6 +125,24 @@ First argument must be an object with oauth credentials.
 Stweam currently extends the [ntwitter](https://github.com/AvianFlu/ntwitter) library. All methods added are specifically designed to facilitate usage of Twitter streams.
 
 All streams have a `connected` key indicating if the stream is currently connected. Constructors last argument can be an object of parameters. [See here](https://dev.twitter.com/docs/api/2/get/user) for a list of parameters and their descriptions.
+
+### Stream
+Stweam creates several types of streams. They all have the following properties, methods, and events.
+
+### Stream#connected
+Wether or not the stream is connected.
+
+### Stream#paused
+Wether or not the stream is paused.
+
+### Stream#pause()
+Pause the stream if not already paused.
+
+### Stream#resume()
+Resume the stream if paused.
+
+### Stream#destroy()
+Destroy the stream manually. It will disconnect and will not attempt to reconnect.
 
 ### Events
 All streams emit the following events.
