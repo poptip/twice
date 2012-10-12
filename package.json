@@ -1,10 +1,10 @@
 {
   "name": "stweam",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "description": "Streaming client specifically designed for the Twitter streaming API",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "mocha -R spec test/*-test.js"
+    "test": "nodeunit test/*-test.js"
   },
   "repository": {
     "type": "git",
@@ -22,8 +22,9 @@
     "eventyoshi": "~0.1.4"
   },
   "devDependencies": {
-    "mocha": "x",
-    "nock": "~0.13.3"
+    "sinon": "*",
+    "nock": "~0.13.3",
+    "nodeunit": "~0.7.4"
   },
   "author": "PopTip (http://poptip.com)",
   "private": true
