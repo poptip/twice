@@ -98,9 +98,9 @@ pool.on('reply', function(data) {
   * [SiteStream#userCount()](#sitestreamusercount)
   * [SiteStream#hasUser(twitterID)](#sitestreamhasusertwitterid)
   * [SiteStream#info(callback(err, info))](#sitestreaminfocallbackerr-info)
-  * [Event: 'addUsers'](#event-addusers)
-  * [Event: 'failedToAdd'](#event-failedtoadd)
-  * [Event: 'removeUser'](#event-removeuser)
+  * [Event: 'addedUsers'](#event-addedusers)
+  * [Event: 'failedToAddUsers'](#event-failedtoaddusers)
+  * [Event: 'removedUser'](#event-removeduser)
   * [Event: 'token revoked'](#event-token-revoked)
 * [Stweam#createPool(options)](#stweamcreatepooloptions)
   * [Pool#addUser(twitterID, queue)](#pooladdusertwitterid-queue)
@@ -427,18 +427,18 @@ For example, the event `friends` would be emitted like this: `function (userid, 
 
 In addition, an event with the user's Twittter ID appended to the event name is emitted. For user with an ID of `1234` the event `friends:1234` would be emitted with `friends` as the first argument.
 
-### Event: 'addUsers'
+### Event: 'addedUsers'
 * `Array.string` - Array of user IDs.
 * `Object` - Contains user IDs as keys with their respective screen names as values.
 
 When a batch of users are successfully added to this site stream. Users are checked that they've been actually added using the `SiteStream#info()` method.
 
-### Event: 'failedToAdd'
+### Event: 'failedToAddUsers'
 * `Array.string` - Array of user IDs.
 
 If there was a user did not show up in the `SiteStream#info()` call after sending a request to add that user, they will show up here.
 
-### Event: 'removeUser'
+### Event: 'removedUser'
 * `string` - User ID.
 
 After a call to `SiteStream#remove()`, either this or an `error` event will be emitted, even if a callback was given to the method.
