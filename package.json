@@ -19,7 +19,8 @@
     "request": "~2.11.4",
     "timequeue": "~0.2.0",
     "jstream": "~0.2.0",
-    "eventyoshi": "~0.1.4"
+    "eventyoshi": "~0.1.4",
+    "streamify": "~0.1.1"
   },
   "devDependencies": {
     "sinon": "*",
