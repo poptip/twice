@@ -66,6 +66,7 @@ pool.on('reply', function(data) {
   * [Event: 'limit'](#event-limit)
   * [Event: 'status_withheld'](#event-status_withheld)
   * [Event: 'user_withheld'](#event-user_withheld)
+  * [Event: 'admin logout'](#event-admin-logout)
   * [Event: 'tweet'](#event-tweet)
   * [Event: 'tweet:retweet'](#event-tweetretweet)
   * [Event: 'tweet:retweet:`retweeted_status.id`'](#event-tweetretweetretweeted_status_id)
@@ -153,11 +154,11 @@ Stream has connected. This is also emitted if it's a reconnection.
 
 ### Event: 'beforeConnect'
 
-Emitted right before a connection is made.
+Emitted right before a connection is attempted.
 
 ### Event: 'reconnect'
 
-Emitted right before a reconnection is made.
+Emitted right before a reconnection is attempted.
 
 ### Event: 'disconnect'
 
@@ -227,6 +228,13 @@ Indicates a status has been withheld in certain countries.
 * `Array.string` - An array of two-letter country codes.
 
 Indicates a user has been withheld in certain countries.
+
+### Event: 'admin logout'
+* `string` - Stream name.
+* `string` - Twitter handle for which this site stream belongs to.
+* `number` - Code of the event.
+
+Your app has been logged out. Probably caused by opening several streams with the same credentials.
 
 ### Event: 'tweet'
 * [tweet](#tweet)
@@ -444,14 +452,12 @@ If there was a user did not show up in the `SiteStream#info()` call after sendin
 After a call to `SiteStream#remove()`, either this or an `error` event will be emitted, even if a callback was given to the method.
 
 ### Event: 'token revoked'
-* `string` - User Twitter ID.
 * `string` - User Twitter handle.
 * `string` - Stream name.
 * `string` - Twitter handle for which this site stream belongs to.
 * `number` - Code of the event.
 
 A user has revoked access to your app.
-
 
 ### Stweam#createPool([options])
 Creates an instance of a site stream pool. Automatically creates and removes site streams as needed respecting twitter's request demands. Options defaults to
