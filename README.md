@@ -117,12 +117,12 @@ First argument must be an object with oauth credentials.
 {
   consumer_key: 'twitter',
   consumer_secret: 'API',
-  access_token_key: 'keys',
-  access_token_secret: 'go here'
+  token: 'keys',
+  token_secret: 'go here'
 }
 ```
 
-Stweam currently extends the [ntwitter](https://github.com/AvianFlu/ntwitter) library. All methods added are specifically designed to facilitate usage of Twitter streams.
+All methods added are specifically designed to facilitate usage of Twitter streams.
 
 All streams have a `connected` key indicating if the stream is currently connected. Constructors last argument can be an object of parameters. [See here](https://dev.twitter.com/docs/api/2/get/user) for a list of parameters and their descriptions.
 
@@ -454,7 +454,7 @@ A user has revoked access to your app.
 
 
 ### Stweam#createPool([options])
-Creates an instance of a site stream pool. Automatically creates and removes site streams as needed respecting twitter's request demands. `client` must be an instance of ntwitter. Options defaults to
+Creates an instance of a site stream pool. Automatically creates and removes site streams as needed respecting twitter's request demands. Options defaults to
 
 ```js
 {
