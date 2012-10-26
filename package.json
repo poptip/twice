@@ -1,6 +1,6 @@
 {
   "name": "stweam",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Streaming client specifically designed for the Twitter streaming API",
   "main": "./lib/index.js",
   "scripts": {
