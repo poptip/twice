@@ -464,6 +464,9 @@ Creates an instance of a site stream pool. Automatically creates and removes sit
 
 ```js
 {
+  // param options to pass to site streams it creates
+  siteStream: undefined,
+
   // amount of time to wait when adding users in order to add more
   // together in one request
   addUserTimeout: 1000
