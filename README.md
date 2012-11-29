@@ -200,8 +200,8 @@ This event is emitted every time a full JSON object is received from twitter. Us
 Emitted when the client is falling behind on reading tweets. Will occur a maximum of about once in 5 minutes. It really should not happen because this is node, come on.
 
 ### Event: 'delete'
-* `number` - ID of status to delete.
-* `number` - User for which status belongs to.
+* `string` - ID of status to delete.
+* `string` - User for which status belongs to.
 
 These messages indicate that a given Tweet has been deleted. Client code must honor these messages by clearing the referenced Tweet from memory and any storage or archive, even in the rare case where a deletion message arrives earlier in the stream that the Tweet it references.
 
