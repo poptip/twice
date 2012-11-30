@@ -53,7 +53,6 @@ pool.on('reply', function(data) {
   * [Stream#destroy](#stream-destroy)
   * [Event: 'connect'](#event-connect)
   * [Event: 'beforeConnect'](#event-beforeconnect)
-  * [Event: 'reconnect'](#event-reconnect)
   * [Event: 'disconnect'](#event-disconnect)
   * [Event: 'destroy'](#event-destroy)
   * [Event: 'timeout'](#event-timeout)
@@ -155,10 +154,6 @@ Stream has connected. This is also emitted if it's a reconnection.
 ### Event: 'beforeConnect'
 
 Emitted right before a connection is attempted.
-
-### Event: 'reconnect'
-
-Emitted right before a reconnection is attempted.
 
 ### Event: 'disconnect'
 
