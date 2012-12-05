@@ -424,7 +424,7 @@ Gets information about the stream from twitter. Sample:
 ```
 
 ### Events
-Site streams receive the same events as user streams. But for multiple users instead of one. To identify which user an event belongs to, each event includes a user's ID appended to the arguments. Except for the events: `connect', `reconnect`, `disconnect`, `destroy`, `retry`, `retryMax`, `data`, and `tweet`. 
+Site streams receive the same events as user streams. But for multiple users instead of one. To identify which user an event belongs to, each event includes a user's ID appended to the arguments. Except for the events: `connect`, `reconnect`, `disconnect`, `destroy`, `retry`, `retryMax`, `data`, and `tweet`. 
 
 For example, the event `friends` would be emitted like this: `function (friends, userid) { }`.
 
