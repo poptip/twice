@@ -83,9 +83,9 @@ pool.on('reply', function(data) {
   * [Event: 'favorite'](#event-favorite)
   * [Event: 'unfavorite'](#event-unfavorite)
   * [Event: 'follow'](#event-follow)
-  * [Event: 'list_create'](#event-list_create)
-  * [Event: 'list_destroy'](#event-list_destroy)
-  * [Event: 'list_update'](#event-list_update)
+  * [Event: 'list_created'](#event-list_created)
+  * [Event: 'list_destroyed'](#event-list_destroyed)
+  * [Event: 'list_updated'](#event-list_updated)
   * [Event: 'list_member_add'](#event-list_member_add)
   * [Event: 'list_member_remove'](#event-list_member_remove)
   * [Event: 'list_user_subscribe'](#event-list_user_subscribe)
@@ -324,19 +324,19 @@ User unfavorites a tweet.
 
 User follows someone.
 
-### Event: 'list_create'
+### Event: 'list_created'
 * `list`
 * `Date` - Created at date.
 
 User creates a list.
 
-### Event: 'list_destroy'
+### Event: 'list_destroyed'
 * `list`
 * `Date` - Created at date.
 
 User deletes a list.
 
-### Event: 'list_update'
+### Event: 'list_updated'
 * `list`
 * `Date` - Created at date.
 
