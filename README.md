@@ -95,12 +95,17 @@ pool.on('reply', function(data) {
   * [SiteStream#addUser(twitterID)](#sitestreamaddusertwitterid)
   * [SiteStream#addUsers(twitterIDs)](#sitestreamadduserstwitterids)
   * [SiteStream#removeUser(twitterID, [callback(err)])](#sitestreamremoveusertwitterid-callbackerr)
-  * [SiteStream#userCount()](#sitestreamusercount)
+  * [SiteStream#users](#sitestreamusers)
+  * [SiteStream#usersInStream](#sitestreamusersinstream)
+  * [SiteStream#usersInQueue](#sitestreamusersinqueue)
   * [SiteStream#hasUser(twitterID)](#sitestreamhasusertwitterid)
+  * [SiteStream#hasUserInStream(twitterID)](#sitestreamhasuserinstreamtwitterid)
+  * [SiteStream#hasUserInQueue(twitterID)](#sitestreamhasuserinqueuetwitterid)
   * [SiteStream#info(callback(err, info))](#sitestreaminfocallbackerr-info)
-  * [Event: 'addedUsers'](#event-addedusers)
+  * [Event: 'addUsersToQueue'](#event-adduserstoqueue)
+  * [Event: 'addUsersToStream'](#event-adduserstostream)
   * [Event: 'failedToAddUsers'](#event-failedtoaddusers)
-  * [Event: 'removedUser'](#event-removeduser)
+  * [Event: 'removeUser'](#event-removeuser)
   * [Event: 'token revoked'](#event-token-revoked)
 * [Stweam#createPool(options)](#stweamcreatepooloptions)
   * [Pool#addUser(twitterID, queue)](#pooladdusertwitterid-queue)
@@ -168,8 +173,8 @@ Stream was destroyed.
 Stream has timed out and will be reconnecting soon.
 
 ### Event: 'retry'
-* `string` - Algorithm. Either `linear` or `exponential`.
-* `string` - Method.
+* `String` - Algorithm. Either `linear` or `exponential`.
+* `String` - Method.
 * `number` - Milliseconds until next retry.
 * `number` - Amount of attempts the method has been retried without success.
 * `number` - Total number of retries.
@@ -177,8 +182,8 @@ Stream has timed out and will be reconnecting soon.
 There was an error calling a method. This indicates the method will be called again.
 
 ### Event: 'retryMax'
-* `string` - Algorithm. Either `linear` or `exponential`.
-* `string` - Method. So far only `reconnect` and `addUsers` are retried.
+* `String` - Algorithm. Either `linear` or `exponential`.
+* `String` - Method. So far only `reconnect` and `addUsers` are retried.
 
 This is emitted if the maximum retry is reached for a method with a certain algorithm. At which point you can pause the stream or whatever until you figure out what went wrong.
 
@@ -188,21 +193,21 @@ This is emitted if the maximum retry is reached for a method with a certain algo
 This event is emitted every time a full JSON object is received from twitter. Useful for debugging.
 
 ### Event: 'warning'
-* `string` - Code, ex: `FALLING_BEHIND`.
-* `string` - Message.
+* `String` - Code, ex: `FALLING_BEHIND`.
+* `String` - Message.
 * `number` - Queue full percentage.
 
 Emitted when the client is falling behind on reading tweets. Will occur a maximum of about once in 5 minutes. It really should not happen because this is node, come on.
 
 ### Event: 'delete'
-* `string` - ID of status to delete.
-* `string` - User for which status belongs to.
+* `String` - ID of status to delete.
+* `String` - User for which status belongs to.
 
 These messages indicate that a given Tweet has been deleted. Client code must honor these messages by clearing the referenced Tweet from memory and any storage or archive, even in the rare case where a deletion message arrives earlier in the stream that the Tweet it references.
 
 ### Event: 'scrub_geo'
-* `string` - The ID of the user.
-* `string` - Up to which status to scrub geo info from.
+* `String` - The ID of the user.
+* `String` - Up to which status to scrub geo info from.
 
 These messages indicate that geolocated data must be stripped from a range of Tweets. Clients must honor these messages by deleting geocoded data from Tweets which fall before the given status ID and belong to the specified user. These messages may also arrive before a Tweet which falls into the specified range, although this is rare.
 
@@ -212,21 +217,21 @@ These messages indicate that geolocated data must be stripped from a range of Tw
 These messages indicate that a filtered stream has matched more Tweets than its current rate limit allows to be delivered. Limit notices contain a total count of the number of undelivered Tweets since the connection was opened, making them useful for tracking counts of track terms, for example. Note that the counts do not specify which filter predicates undelivered messages matched.
 
 ### Event: 'status_withheld'
-* `string` - ID of status.
-* `string` - ID of user.
-* `Array.string` - An array of two-letter countries codes. Example: `['de', 'ar']`
+* `String` - ID of status.
+* `String` - ID of user.
+* `Array.<String>` - An array of two-letter countries codes. Example: `['de', 'ar']`
 
 Indicates a status has been withheld in certain countries.
 
 ### Event: 'user_withheld'
-* `string` - ID of user.
-* `Array.string` - An array of two-letter country codes.
+* `String` - ID of user.
+* `Array.<String>` - An array of two-letter country codes.
 
 Indicates a user has been withheld in certain countries.
 
 ### Event: 'admin logout'
-* `string` - Stream name.
-* `string` - Twitter handle for which this site stream belongs to.
+* `String` - Stream name.
+* `String` - Twitter handle for which this site stream belongs to.
 * `number` - Code of the event.
 
 Your app has been logged out. Probably caused by opening several streams with the same credentials.
@@ -283,7 +288,7 @@ Create an instance of a firehose. Emits all public tweets. Requires special perm
 Create an instance of a user stream. [See here](https://dev.twitter.com/docs/api/2/get/user) for a list of parameters.
 
 ### Event: 'friends'
-* `Array.string` - An array of user IDs.
+* `Array.<String>` - An array of Twitter IDs.
 
 Upon establishing a User Stream connection, Twitter will send a preamble before starting regular message delivery. This preamble contains a list of the user's friends. 
 
@@ -393,11 +398,23 @@ Add several users to the stream.
 ### SiteStream#removeUser(twitterID, [callback(err)])
 Remove a user from the stream.
 
-### SiteStream#userCount()
-Returns the number of users in stream, including the number of queued users that are going to be added to the stream.
+### SiteStream#users
+List of users in stream, including the number of queued users that are going to be added to the stream.
+
+### SiteStream#usersInStream
+List of users that are currently being listened to by the stream.
+
+### SiteStream#usersInQueue
+List of users that will be added to the stream.
 
 ### SiteStream#hasUser(twitterID)
 Returns true if user is in site stream.
+
+### SiteStream#hasUserInStream(twitterID)
+Returns true if user is being listened to.
+
+### SiteStream#hasUserInQueue(twitterID)
+Returns true if users is in queue.
 
 ### SiteStream#info(callback(err, info))
 Gets information about the stream from twitter. Sample:
@@ -430,26 +447,31 @@ For example, the event `friends` would be emitted like this: `function (friends,
 
 In addition, an event with the user's Twittter ID appended to the event name is emitted. For user with an ID of `1234` the event `friends:1234` would be emitted with `friends` as the first argument.
 
-### Event: 'addedUsers'
-* `Array.string` - Array of user IDs.
-* `Object` - Contains user IDs as keys with their respective screen names as values.
+### Event: 'addUsersToQueue'
+* `Array.<String>` - Array of Twitter IDs.
+
+Emitted when users are added to the stream's queue, eventually will be attempted to added to the stream using the add user control endpoint. At which point each of the twitter IDs will be in either the `addUsersToStream` or `failedToAddUsers` events.
+
+### Event: 'addUsersToStream'
+* `Array.<String>` - Array of Twitter IDs.
+* `Object` - Contains Twitter IDs as keys with their respective screen names as values.
 
 When a batch of users are successfully added to this site stream. Users are checked that they've been actually added using the `SiteStream#info()` method.
 
 ### Event: 'failedToAddUsers'
-* `Array.string` - Array of user IDs.
+* `Array.<String>` - Array of Twitter IDs.
 
 If there was a user did not show up in the `SiteStream#info()` call after sending a request to add that user, they will show up here.
 
-### Event: 'removedUser'
-* `string` - User ID.
+### Event: 'removeUser'
+* `String` - User ID.
 
 After a call to `SiteStream#remove()`, either this or an `error` event will be emitted, even if a callback was given to the method.
 
 ### Event: 'token revoked'
-* `string` - User Twitter handle.
-* `string` - Stream name.
-* `string` - Twitter handle for which this site stream belongs to.
+* `String` - User Twitter handle.
+* `String` - Stream name.
+* `String` - Twitter handle for which this site stream belongs to.
 * `number` - Code of the event.
 
 A user has revoked access to your app.
