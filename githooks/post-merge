@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# Runs after a merge. If package.json is modified, then run npm i.
+#
+
+# Debugging stuff.
+echo Running $BASH_SOURCE
+#set | egrep GIT
+echo PWD is $PWD
+
+git diff --name-only --exit-code HEAD@{1} HEAD package.json > /dev/null
+
+OUT=$?
+if [ $OUT -eq 1 ]
+then
+	echo "### package.json was changed.\n### Running npm i ..."
+	npm i
+fi
