@@ -18,7 +18,7 @@ function createSiteStream(users, connected) {
     process.nextTick(callback.bind(null, null));
   };
 
-  var stream = new SiteStream(client, users);
+  var stream = client.createSiteStream(users);
 
   if (connected) {
     stream.connected = true;
