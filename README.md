@@ -53,7 +53,7 @@ pool.on('reply', function(data) {
   * [Stream#destroy](#stream-destroy)
   * [Event: 'connect'](#event-connect)
   * [Event: 'beforeConnect'](#event-beforeconnect)
-  * [Event: 'disconnect'](#event-disconnect)
+  * [Event: 'end'](#event-end)
   * [Event: 'destroy'](#event-destroy)
   * [Event: 'timeout'](#event-timeout)
   * [Event: 'retry'](#event-retry)
@@ -65,7 +65,7 @@ pool.on('reply', function(data) {
   * [Event: 'limit'](#event-limit)
   * [Event: 'status_withheld'](#event-status_withheld)
   * [Event: 'user_withheld'](#event-user_withheld)
-  * [Event: 'admin logout'](#event-admin-logout)
+  * [Event: 'disconnect'](#event-disconnect)
   * [Event: 'tweet'](#event-tweet)
   * [Event: 'tweet:retweet'](#event-tweetretweet)
   * [Event: 'tweet:retweet:`retweeted_status.id`'](#event-tweetretweetretweeted_status_id)
@@ -160,7 +160,7 @@ Stream has connected. This is also emitted if it's a reconnection.
 
 Emitted right before a connection is attempted.
 
-### Event: 'disconnect'
+### Event: 'end'
 
 Stream was disconnected.
 
@@ -229,10 +229,11 @@ Indicates a status has been withheld in certain countries.
 
 Indicates a user has been withheld in certain countries.
 
-### Event: 'admin logout'
+### Event: 'disconnect'
+* `Number` - Code of the event.
+* `String` - Reason. See [here](https://dev.twitter.com/docs/streaming-apis/messages#Disconnect_messages_disconnect) for details.
 * `String` - Stream name.
 * `String` - Twitter handle for which this site stream belongs to.
-* `number` - Code of the event.
 
 Your app has been logged out. Probably caused by opening several streams with the same credentials.
 

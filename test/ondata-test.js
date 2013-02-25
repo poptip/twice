@@ -64,6 +64,16 @@ var tests = {
       }
     },
     args: [data.code, data.message, data.percent_full]
+  },
+  disconnect: {
+    data: {
+      disconnect: {
+        code: 4,
+        stream_name: 'mondaysundayrunday-kfalter',
+        reason: 'admin logout'
+      }
+    },
+    args: [4, 'admin logout', 'mondaysundayrunday', 'kfalter']
   }
 };
 

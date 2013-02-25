@@ -77,7 +77,7 @@ exports['response stream closes'] = function(test) {
   stream.on('retry', retrySpy);
 
   stream.on('connect', res.destroy.bind(res));
-  stream.on('disconnect', function() {
+  stream.on('end', function() {
     test.ok(retrySpy.calledWith('exponential'));
     stream.destroy();
   });
@@ -104,7 +104,7 @@ exports['response stream suddenly ends'] = function(test) {
   stream.on('retry', retrySpy);
 
   stream.on('connect', res.end.bind(res));
-  stream.on('disconnect', function() {
+  stream.on('end', function() {
     test.ok(retrySpy.calledWith('exponential'));
     stream.destroy();
   });
