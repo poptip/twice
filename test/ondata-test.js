@@ -5,6 +5,7 @@ var EventEmitter = require('events').EventEmitter;
 
 var data;
 var tests = {
+  // Events for all types of streams.
   delete: {
     data: {
       delete: {
@@ -74,6 +75,12 @@ var tests = {
       }
     },
     args: [4, 'admin logout', 'mondaysundayrunday', 'kfalter']
+  },
+
+  // User stream events.
+  friends: {
+    data: { friends: data = [1497, 169686021, 790205, 15211564] },
+    args: [data]
   }
 };
 
