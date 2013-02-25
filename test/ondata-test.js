@@ -4,7 +4,7 @@ var EventEmitter = require('events').EventEmitter;
 
 
 var data;
-var tests = {
+var events = {
   // Events for all types of streams.
   delete: {
     data: {
@@ -75,24 +75,109 @@ var tests = {
       }
     },
     args: [4, 'admin logout', 'mondaysundayrunday', 'kfalter']
-  },
-
-  // User stream events.
-  friends: {
-    data: { friends: data = [1497, 169686021, 790205, 15211564] },
-    args: [data]
   }
 };
 
 
-Object.keys(tests).forEach(function(event) {
-  var testData = tests[event];
+// User stream events.
+events.friends = {
+  data: { friends: data = [1497, 169686021, 790205, 15211564] },
+  args: [data]
+};
+
+var userStreamEvents = {
+  // Event Name | Source | Target | Target Object
+  block: {
+    data: ['user1', 'user2', null],
+    args: ['user1', 'user2']
+  },
+  unblock: {
+    data: ['user1', 'user2', null],
+    args: ['user1', 'user2']
+  },
+  favorite: {
+    data: ['user1', 'user2', 'tweet'],
+    args: ['user1', 'user2', 'tweet']
+  },
+  unfavorite: {
+    data: ['user1', 'user2', 'tweet'],
+    args: ['user1', 'user2', 'tweet']
+  },
+  follow: {
+    data: ['user1', 'user2'],
+    args: ['user1', 'user2']
+  },
+  unfollow: {
+    data: ['user1', 'user2'],
+    args: ['user1', 'user2']
+  },
+  list_created: {
+    data: ['user1', 'user1', 'list'],
+    args: ['list']
+  },
+  list_destroyed: {
+    data: ['user1', 'user1', 'list'],
+    args: ['list']
+  },
+  list_updated: {
+    data: ['user1', 'user1', 'list'],
+    args: ['list']
+  },
+  list_member_added: {
+    data: ['user1', 'user2', 'list'],
+    args: ['user1', 'user2', 'list']
+  },
+  list_member_removed: {
+    data: ['user1', 'user2', 'list'],
+    args: ['user1', 'user2', 'list']
+  },
+  list_user_subscribed: {
+    data: ['user1', 'user2', 'list'],
+    args: ['user1', 'user2', 'list']
+  },
+  list_user_unsubscribed: {
+    data: ['user1', 'user2', 'list'],
+    args: ['user1', 'user2', 'list']
+  },
+  user_update: {
+    data: ['user1', 'user1', null],
+    args: ['user1']
+  }
+};
+
+Object.keys(userStreamEvents).forEach(function(event) {
+  var eventData = userStreamEvents[event];
+  var createdAt = new Date();
+
+  events[event] = {
+    data: {
+      target: eventData.data[1],
+      source: eventData.data[0],
+      event: event,
+      target_object: eventData.data[2],
+      created_at: createdAt.toString()
+    },
+    args: eventData.args.concat(createdAt)
+  };
+});
+
+
+Object.keys(events).forEach(function(event) {
+  var testData = events[event];
   exports[event] = function(test) {
     var ee = new EventEmitter();
 
     ee.on(event, function onEvent() {
       for (var i = 0, l = testData.args.length; i < l; i++) {
-        test.deepEqual(testData.args[i], arguments[i]);
+        var a = testData.args[i];
+        var b = arguments[i];
+        if (a instanceof Date) {
+          a = a.toString();
+        }
+        if (b instanceof Date) {
+          b = b.toString();
+        }
+        test.deepEqual(a, b);
       }
 
       test.done();
