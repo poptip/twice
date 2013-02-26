@@ -185,8 +185,59 @@ var events = {
       }
     },
     args: ['stream', 'kfalter']
+  },
+
+
+  // Tweet events.
+  tweet: {
+    data: data = { text: 'hello there' },
+    args: [data]
+  },
+  'tweet:retweet': {
+    data: data = { text: 'hello', retweeted_status: {} },
+    args: [data]
+  },
+  'tweet:retweet:<tweet ID>': {
+    data: data = { text: 'hello', retweeted_status: { id_str: '1234' } },
+    args: [data],
+    event: 'tweet:retweet:1234'
+  },
+  'tweet:reply': {
+    data: data = { text: 'hello', in_reply_to_status_id_str: '42' },
+    args: [data]
+  },
+  'tweet:reply:<tweet ID>': {
+    data: data = { text: 'hello', in_reply_to_status_id_str: '42' },
+    args: [data],
+    event: 'tweet:reply:42'
+  },
+  'tweet:mention': {
+    data: data = { text: 'hello', in_reply_to_screen_name: 'pie' },
+    args: [data]
+  },
+  'tweet:mention:<screen name>': {
+    data: data = { text: 'hello', in_reply_to_screen_name: 'pie' },
+    args: [data],
+    event: 'tweet:mention:pie'
+  },
+  'tweet:mention - entities': {
+    data: data = {
+      text: 'hello',
+      entities: { user_mentions: [{ screen_name: 'roly' }] }
+    },
+    args: [data],
+    event: 'tweet:mention'
+  },
+  'tweet:mention:<screen name> - entities': {
+    data: data = {
+      text: 'hello',
+      entities: { user_mentions: [{ screen_name: 'roly' }] }
+    },
+    args: [data],
+    event: 'tweet:mention:roly'
   }
 };
+
 
 
 // User stream events.
