@@ -162,12 +162,37 @@ Object.keys(userStreamEvents).forEach(function(event) {
 });
 
 
+// Site stream events.
+events.control = {
+  data: {
+    control: {
+      control_uri: data = '/1.1/site/c/01_225167_334389048B872A533002B34D73F8C29FD09EFC50'
+    }
+  },
+  args: [data]
+};
+
+['friends'].concat(Object.keys(userStreamEvents)).forEach(function(event) {
+  var userEvent = events[event];
+
+  events['sitestream - ' + event] = {
+    data: {
+      for_user: '1234',
+      message: userEvent.data
+    },
+    args: userEvent.args.concat('1234'),
+    event: event
+  };
+});
+
+
 Object.keys(events).forEach(function(event) {
   var testData = events[event];
+
   exports[event] = function(test) {
     var ee = new EventEmitter();
 
-    ee.on(event, function onEvent() {
+    ee.on(testData.event || event, function onEvent() {
       for (var i = 0, l = testData.args.length; i < l; i++) {
         var a = testData.args[i];
         var b = arguments[i];
