@@ -66,6 +66,17 @@ pool.on('reply', function(data) {
   * [Event: 'status_withheld'](#event-status_withheld)
   * [Event: 'user_withheld'](#event-user_withheld)
   * [Event: 'disconnect'](#event-disconnect)
+  * [Event: 'shutdown'](#event-shutdown)
+  * [Event: 'duplicate stream'](#event-dupliate-stream)
+  * [Event: 'control request'](#event-control-request)
+  * [Event: 'stall'](#event-stall)
+  * [Event: 'normal'](#event-normal)
+  * [Event: 'token revoked'](#event-token-revoked)
+  * [Event: 'admin logout'](#event-admin-logout)
+  * [Event: 'max message limit'](#event-max-message-limit)
+  * [Event: 'stream exception'](#event-stream-exception)
+  * [Event: 'broker stall'](#event-broker-stall)
+  * [Event: 'shed load'](#event-shed-load)
   * [Event: 'tweet'](#event-tweet)
   * [Event: 'tweet:retweet'](#event-tweetretweet)
   * [Event: 'tweet:retweet:`retweeted_status.id`'](#event-tweetretweetretweeted_status_id)
@@ -106,7 +117,6 @@ pool.on('reply', function(data) {
   * [Event: 'addUsersToStream'](#event-adduserstostream)
   * [Event: 'failedToAddUsers'](#event-failedtoaddusers)
   * [Event: 'removeUser'](#event-removeuser)
-  * [Event: 'token revoked'](#event-token-revoked)
 * [Stweam#createPool(options)](#stweamcreatepooloptions)
   * [Pool#addUser(twitterID, queue)](#pooladdusertwitterid-queue)
   * [Pool#addUsers(twitterIDs)](#pooladduserstwitterids)
@@ -231,11 +241,78 @@ Indicates a user has been withheld in certain countries.
 
 ### Event: 'disconnect'
 * `Number` - Code of the event.
-* `String` - Reason. See [here](https://dev.twitter.com/docs/streaming-apis/messages#Disconnect_messages_disconnect) for details.
+* `String` - Reason.
 * `String` - Stream name.
-* `String` - Twitter handle for which this site stream belongs to.
+* `String` - Twitter handle for which the stream belongs to.
 
-Your app has been logged out. Probably caused by opening several streams with the same credentials.
+Stream was disconnected for a [variety of reasons](https://dev.twitter.com/docs/streaming-apis/messages#Disconnect_messages_disconnect). For each possible reason documented, events below are also emitted.
+
+### Event: 'shutdown'
+* `String` - Stream name.
+* `String` - Twitter handle for which the stream belongs to.
+
+The feed was shutdown (possibly a machine restart).
+
+### Event: 'duplicate stream'
+* `String` - Stream name.
+* `String` - Twitter handle for which the stream belongs to.
+
+The same endpoint was connected too many times.
+
+### Event: 'control request'
+* `String` - Stream name.
+* `String` - Twitter handle for which the stream belongs to.
+
+Control streams was used to close a stream (applies to sitestreams).
+
+### Event: 'stall'
+* `String` - Stream name.
+* `String` - Twitter handle for which the stream belongs to.
+
+The client was reading too slowly and was disconnected by the server.
+
+### Event: 'normal'
+* `String` - Stream name.
+* `String` - Twitter handle for which the stream belongs to.
+
+The client appeared to have initiated a disconnect.
+
+### Event: 'token revoked'
+* `String` - Twitter handle.
+* `String` - Stream name.
+* `String` - Twitter handle for which the stream belongs to.
+
+An oauth token was revoked for a user (applies to site and userstreams).
+
+### Event: 'admin logout'
+* `String` - Stream name.
+* `String` - Twitter handle for which the stream belongs to.
+
+The same credentials were used to connect a new stream and the oldest was disconnected.
+
+### Event: 'max message limit'
+* `String` - Stream name.
+* `String` - Twitter handle for which the stream belongs to.
+
+The stream connected with a negative count parameter and was disconnected after all backfill was delivered.
+
+### Event: 'stream exception'
+* `String` - Stream name.
+* `String` - Twitter handle for which the stream belongs to.
+
+An internal issue disconnected the stream.
+
+### Event: 'broker stall'
+* `String` - Stream name.
+* `String` - Twitter handle for which the stream belongs to.
+
+An internal issue disconnected the stream.
+
+### Event: 'shed load'
+* `String` - Stream name.
+* `String` - Twitter handle for which the stream belongs to.
+
+The host the stream was connected to became overloaded and streams were disconnected to balance load. Reconnect as usual.
 
 ### Event: 'tweet'
 * [tweet](#tweet)
@@ -468,12 +545,6 @@ If there was a user did not show up in the `SiteStream#info()` call after sendin
 * `String` - User ID.
 
 After a call to `SiteStream#remove()`, either this or an `error` event will be emitted, even if a callback was given to the method.
-
-### Event: 'token revoked'
-* `String` - User Twitter handle.
-* `String` - Stream name.
-* `String` - Twitter handle for which this site stream belongs to.
-* `number` - Code of the event.
 
 A user has revoked access to your app.
 

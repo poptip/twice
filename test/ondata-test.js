@@ -75,6 +75,116 @@ var events = {
       }
     },
     args: [4, 'admin logout', 'mondaysundayrunday', 'kfalter']
+  },
+  shutdown: {
+    data: {
+      disconnect: {
+        code: 1,
+        stream_name: 'stream-kfalter',
+        reason: 'shutdown'
+      }
+    },
+    args: ['stream', 'kfalter']
+  },
+  'duplicate stream': {
+    data: {
+      disconnect: {
+        code: 2,
+        stream_name: 'stream-kfalter',
+        reason: 'duplicate stream'
+      }
+    },
+    args: ['stream', 'kfalter']
+  },
+  'control request': {
+    data: {
+      disconnect: {
+        code: 3,
+        stream_name: 'stream-kfalter',
+        reason: 'control request'
+      }
+    },
+    args: ['stream', 'kfalter']
+  },
+  stall: {
+    data: {
+      disconnect: {
+        code: 4,
+        stream_name: 'stream-kfalter',
+        reason: 'stall'
+      }
+    },
+    args: ['stream', 'kfalter']
+  },
+  normal: {
+    data: {
+      disconnect: {
+        code: 5,
+        stream_name: 'stream-kfalter',
+        reason: 'normal'
+      }
+    },
+    args: ['stream', 'kfalter']
+  },
+  'token revoked': {
+    data: {
+      disconnect: {
+        code: 6,
+        stream_name: 'roly426-sphere-kfalter',
+        reason: 'token revoked'
+      },
+    },
+    args: ['roly426', 'sphere', 'kfalter']
+  },
+  'admin logout': {
+    data: {
+      disconnect: {
+        code: 7,
+        stream_name: 'stream-kfalter',
+        reason: 'admin logout'
+      }
+    },
+    args: ['stream', 'kfalter']
+  },
+  'max message limit': {
+    data: {
+      disconnect: {
+        code: 9,
+        stream_name: 'stream-kfalter',
+        reason: 'max message limit'
+      }
+    },
+    args: ['stream', 'kfalter']
+  },
+  'stream exception': {
+    data: {
+      disconnect: {
+        code: 10,
+        stream_name: 'stream-kfalter',
+        reason: 'stream exception'
+      }
+    },
+    args: ['stream', 'kfalter']
+  },
+  'broker stall': {
+    data: {
+      disconnect: {
+        code: 11,
+        stream_name: 'stream-kfalter',
+        reason: 'broker stall'
+      }
+    },
+    args: ['stream', 'kfalter']
+  },
+  'shed load': {
+    data: {
+      disconnect: {
+        code: 12,
+        stream_name: 'stream-kfalter',
+        reason: 'shed load'
+      }
+    },
+    args: ['stream', 'kfalter']
   }
 };
 
