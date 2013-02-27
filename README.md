@@ -82,8 +82,8 @@ pool.on('reply', function(data) {
   * [Event: 'tweet:retweet:`retweeted_status.id`'](#event-tweetretweetretweeted_status_id)
   * [Event: 'tweet:reply'](#event-tweetreply)
   * [Event: 'tweet:reply:`in_reply_to_status_id`'](#event-tweetreplyin_reply_to_status_id)
-  * [Event: 'tweet:@reply'](#event-tweetreply-1)
-  * [Event: 'tweet:@reply:`in_reply_to_screen_name`'](#event-tweetreplyin_reply_to_screen_name)
+  * [Event: 'tweet:mention'](#event-tweetmention)
+  * [Event: 'tweet:mention:`in_reply_to_screen_name`'](#event-tweetmentionin_reply_to_screen_name)
 * [Stweam#createPublicStream([parameters])](#stweamcreatepublicstreamparameters)
 * [Stweam#createSampleStream([parameters])](#stweamcreatesamplestreamparameters)
 * [Stweam#createFirehose([parameters])](#stweamcreatefirehoseparameters)
@@ -118,11 +118,20 @@ pool.on('reply', function(data) {
   * [Event: 'failedToAddUsers'](#event-failedtoaddusers)
   * [Event: 'removeUser'](#event-removeuser)
 * [Stweam#createPool(options)](#stweamcreatepooloptions)
-  * [Pool#addUser(twitterID, queue)](#pooladdusertwitterid-queue)
+  * [Pool#addUser(twitterID)](#pooladdusertwitterid)
   * [Pool#addUsers(twitterIDs)](#pooladduserstwitterids)
   * [Pool#removeUser(twitterID)](#poolremoveusertwitterid)
+  * [Pool#users](#poolusers)
+  * [Pool#usersInStream](#poolusersinstream)
+  * [Pool#usersInQueue](#poolusersinqueue)
   * [Pool#hasUser(twitterID)](#poolhasusertwitterid)
+  * [Pool#hasUserInStream(twitterID)](#poolhasuserinstreamtwitterid)
+  * [Pool#hasUserInQueue(twitterID)](#poolhasuserinqueuetwitterid)
   * [Pool#simulate(tweet, [twitterID])](#poolsimulatetweet-twitterid)
+  * [Pool#createPublicStream([parameters])](#poolcreatepublicstreamparameters)
+  * [Pool#createSampleStream([parameters])](#poolcreatesamplestreamparameters)
+  * [Pool#createFirehose([parameters])](#poolcreatefirehoseparameters)
+  * [Pool#createUserStream([parameters])](#poolcreateuserstreamparameters)
 
 ### new Stweam(credentials)
 
@@ -339,12 +348,12 @@ Someone replied to a tweet.
 
 Convenient event for listening for replies of a certain tweet.
 
-### Event: 'tweet:@reply'
+### Event: 'tweet:mention'
 * [tweet](#tweet)
 
 Someone replied to another user. Emitted even if the user is mentioned manually.
 
-### Event: 'tweet:@reply:`in_reply_to_screen_name`'
+### Event: 'tweet:mention:`in_reply_to_screen_name`'
 * [tweet](#tweet)
 
 Convenient event for listening for replies to a certain user.
@@ -549,21 +558,10 @@ After a call to `SiteStream#remove()`, either this or an `error` event will be e
 A user has revoked access to your app.
 
 ### Stweam#createPool([options])
-Creates an instance of a site stream pool. Automatically creates and removes site streams as needed respecting twitter's request demands. Options defaults to
+Creates an instance of a site stream pool. Automatically creates and removes site streams as needed respecting twitter's request demands. `options` is passed to the created site streams.
 
-```js
-{
-  // param options to pass to site streams it creates
-  siteStream: undefined,
-
-  // amount of time to wait when adding users in order to add more
-  // together in one request
-  addUserTimeout: 1000
-}
-```
-
-### Pool#addUser(twitterID, queue)
-Adds a user to the pool. Set `queue` to true if you want to queue this user to be added after `options.addUserTimeout` in case there might be more users in the queue later. This saves making unnecessary requests to twitter.
+### Pool#addUser(twitterID)
+Adds a user to the pool.
 
 ### Pool#addUsers(twitterIDs)
 Add several users to the pool at once.
@@ -571,11 +569,41 @@ Add several users to the pool at once.
 ### Pool#removeUser(twitterID)
 Remove a user from pool.
 
+### Pool#users
+List of users in pool.
+
+### Pool#usersInStream
+List of users in pool that are actively being listened to.
+
+### Pool#usersInQueue
+List of users in pool which are queued to be added to a stream.
+
 ### Pool#hasUser(twitterID)
 Returns true if user has been added to pool.
 
+### Pool#hasUserInStream(twitterID)
+Returns true if user is currently being listened to on a stream..
+
+### Pool#hasUserInQueue(twitterID)
+Returns true if user has been queued to be added to a stream.
+
 ### Pool#simulate(tweet, [twitterID])
 Simulates a tweet coming in from twitter. Useful if you get tweets through the REST API and want to emit it through the pool.
+
+### Pool#createPublicStream([parameters])
+Create an instance of a public stream and route its events to the pool.
+
+
+### Pool#createSampleStream([parameters])
+Create an instance of a sample stream and route its events to the pool.
+
+
+### Pool#createFirehose([parameters])
+Create an instance of a firehose and route its events to the pool.
+
+
+### Pool#createUserStream([parameters])
+Create an instance of a user stream and route its events to the pool.
 
 ### Events
 Pool instances are proxied all events from all underlying site stream instances.

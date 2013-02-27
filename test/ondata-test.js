@@ -333,7 +333,11 @@ events.control = {
   args: [data]
 };
 
-['friends'].concat(Object.keys(userStreamEvents)).forEach(function(event) {
+['friends']
+.concat(Object.keys(events).filter(function(event) {
+  return (/^tweet/).test(event);
+}))
+.concat(Object.keys(userStreamEvents)).forEach(function(event) {
   var userEvent = events[event];
 
   events['sitestream - ' + event] = {
@@ -342,7 +346,7 @@ events.control = {
       message: userEvent.data
     },
     args: userEvent.args.concat('1234'),
-    event: event
+    event: userEvent.event || event
   };
 });
 
