@@ -48,6 +48,8 @@ pool.on('reply', function(data) {
 * [Stream](#stream)
   * [Stream#connected](#stream-connected)
   * [Stream#paused](#stream-paused)
+  * [Stream#connect](#stream-connect)
+  * [Stream#reconnect](#stream-reconnect)
   * [Stream#pause](#stream-pause)
   * [Stream#resume](#stream-resume)
   * [Stream#destroy](#stream-destroy)
@@ -85,9 +87,15 @@ pool.on('reply', function(data) {
   * [Event: 'tweet:mention'](#event-tweetmention)
   * [Event: 'tweet:mention:`in_reply_to_screen_name`'](#event-tweetmentionin_reply_to_screen_name)
 * [Stweam#createPublicStream([parameters])](#stweamcreatepublicstreamparameters)
+  * [PublicStream#track(value)](#publicstreamtrackvalue)
+  * [PublicStream#untrack(value)](#publicstreamuntrackvalue)
 * [Stweam#createSampleStream([parameters])](#stweamcreatesamplestreamparameters)
 * [Stweam#createFirehose([parameters])](#stweamcreatefirehoseparameters)
 * [Stweam#createUserStream([parameters])](#stweamcreateuserstreamparameters)
+  * [UserStream#track(value)](#userstreamtrackvalue)
+  * [UserStream#untrack(value)](#userstreamuntrackvalue)
+  * [UserStream#follow(twitterID)](#userstreamfollowtwitterid)
+  * [UserStream#unfollow(twitterID)](#userstreamunfollowtwitterid)
   * [Event: 'friends'](#event-friends)
   * [Event: 'block'](#event-block)
   * [Event: 'unblock'](#event-unblock)
@@ -117,7 +125,7 @@ pool.on('reply', function(data) {
   * [Event: 'addUsersToStream'](#event-adduserstostream)
   * [Event: 'failedToAddUsers'](#event-failedtoaddusers)
   * [Event: 'removeUser'](#event-removeuser)
-* [Stweam#createPool(options)](#stweamcreatepooloptions)
+* [Stweam#createPool(parameters)](#stweamcreatepoolparameterss)
   * [Pool#addUser(twitterID)](#pooladdusertwitterid)
   * [Pool#addUsers(twitterIDs)](#pooladduserstwitterids)
   * [Pool#removeUser(twitterID)](#poolremoveusertwitterid)
@@ -128,6 +136,7 @@ pool.on('reply', function(data) {
   * [Pool#hasUserInStream(twitterID)](#poolhasuserinstreamtwitterid)
   * [Pool#hasUserInQueue(twitterID)](#poolhasuserinqueuetwitterid)
   * [Pool#simulate(tweet, [twitterID])](#poolsimulatetweet-twitterid)
+  * [Pool#createSiteStream(twitterIDs, [parameters])](#poolcreatesitestreamtwitterids-parameters)
   * [Pool#createPublicStream([parameters])](#poolcreatepublicstreamparameters)
   * [Pool#createSampleStream([parameters])](#poolcreatesamplestreamparameters)
   * [Pool#createFirehose([parameters])](#poolcreatefirehoseparameters)
@@ -158,6 +167,12 @@ Wether or not the stream is connected.
 
 ### Stream#paused
 Wether or not the stream is paused.
+
+### Stream#connect()
+Connect stream. Automatically called when streams are created.
+
+### Stream#reconnect()
+Reconnect stream.
 
 ### Stream#pause()
 Pause the stream if not already paused.
@@ -362,6 +377,12 @@ Convenient event for listening for replies to a certain user.
 ### Stweam#createPublicStream([parameters])
 Create an instance of a public stream.
 
+### PublicStream#track(phrase)
+Track a phrase with this stream. Will reconnect stream.
+
+### PublicStream#untrack(phrase)
+Untrack a phrase. Will reconnect stream.
+
 
 ### Stweam#createSampleStream([parameters])
 Create an instance of a sample stream. Emits random sample of public statuses.
@@ -373,6 +394,18 @@ Create an instance of a firehose. Emits all public tweets. Requires special perm
 
 ### Stweam#createUserStream([parameters])
 Create an instance of a user stream. [See here](https://dev.twitter.com/docs/api/2/get/user) for a list of parameters.
+
+### UserStream#track(phrase)
+Track a phrase with this stream. Will reconnect stream.
+
+### UserStream#untrack(phrase)
+Untrack a phrase. Will reconnect stream.
+
+### UserStream#follow(twitterID)
+Follow a user's timeline with this stream. Will reconnect stream.
+
+### UserStream#unfollow(twitterID)
+Unfollow user. Will reconnect stream.
 
 ### Event: 'friends'
 * `Array.<String>` - An array of Twitter IDs.
@@ -557,8 +590,8 @@ After a call to `SiteStream#remove()`, either this or an `error` event will be e
 
 A user has revoked access to your app.
 
-### Stweam#createPool([options])
-Creates an instance of a site stream pool. Automatically creates and removes site streams as needed respecting twitter's request demands. `options` is passed to the created site streams.
+### Stweam#createPool([parameters])
+Creates an instance of a site stream pool. Automatically creates and removes site streams as needed respecting twitter's request demands. `parameters` is passed to the created site streams.
 
 ### Pool#addUser(twitterID)
 Adds a user to the pool.
@@ -589,6 +622,9 @@ Returns true if user has been queued to be added to a stream.
 
 ### Pool#simulate(tweet, [twitterID])
 Simulates a tweet coming in from twitter. Useful if you get tweets through the REST API and want to emit it through the pool.
+
+### Pool#createSiteStream(twitterIDs, [parameters])
+Create an instance of a site stream. These will be automatically created as users are added with `Pool#addUser()` and `Pool#addUsers()` methods.
 
 ### Pool#createPublicStream([parameters])
 Create an instance of a public stream and route its events to the pool.

@@ -407,3 +407,62 @@ exports['pause and resume stream while not connected'] = function(test) {
 
   stream.on('destroy', test.done);
 };
+
+
+function mockStream(track) {
+  var stream = new Stream(null, 'http://see.me', { track: track });
+  stream.connected = true;
+  stream.connect = function() {};
+  stream.reconnect = spy();
+  stream._createParamMethods('track');
+  return stream;
+}
+
+exports['create param methods'] = {
+  add: {
+    successfully: function(test) {
+      var stream = mockStream('foo');
+      test.equal(stream.params.track, 'foo');
+
+      stream.track('bar');
+      test.equal(stream.params.track, 'foo,bar');
+      test.ok(stream.reconnect.called);
+      test.done();
+    },
+    'when already in list': function(test) {
+      var stream = mockStream();
+      stream.track('foo');
+
+      test.throws(function() {
+        stream.track('foo');
+      }, /Already tracking foo/);
+      test.done();
+    },
+    several: function(test) {
+      var stream = mockStream();
+      stream.track(['zam', 'zoom']);
+      test.equal(stream.params.track, 'zam,zoom');
+      test.equal(stream.reconnect.callCount, 1);
+      test.done();
+    }
+  },
+
+  remove: {
+    'successfully after adding': function(test) {
+      var stream = mockStream('bar');
+      stream.track('foo');
+      stream.untrack('foo');
+      test.equal(stream.params.track, 'bar');
+      test.ok(stream.reconnect.calledTwice);
+      test.done();
+    },
+    'when not in params': function(test) {
+      var stream = mockStream('bar');
+
+      test.throws(function() {
+        stream.untrack('foo');
+      }, /Not tracking foo/);
+      test.done();
+    }
+  }
+};
