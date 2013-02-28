@@ -1,6 +1,8 @@
 /*jshint quotmark:false, es5:true */
 var ondata = require('../lib/ondata');
+var constants = require('../lib/constants');
 var EventEmitter = require('events').EventEmitter;
+var spy = require('sinon').spy;
 
 
 var data;
@@ -376,3 +378,64 @@ Object.keys(events).forEach(function(event) {
     ondata.call(ee, testData.data);
   };
 });
+
+
+exports['duplicate tweets'] = {
+  'different ids': function(test) {
+    var ee = new EventEmitter();
+    ee._tweets = [];
+    ee._tweetsHash = {};
+    var tweet1 = { id_str: '1', text: 'hey' };
+    var tweet2 = { id_str: '2', text: 'hey' };
+
+    var eventSpy = spy();
+    ee.on('unique:tweet', eventSpy);
+
+    ondata.call(ee, tweet1);
+    ondata.call(ee, tweet2);
+
+    test.ok(eventSpy.calledTwice);
+    test.done();
+  },
+  'same ids': function(test) {
+    var ee = new EventEmitter();
+    ee._tweets = [];
+    ee._tweetsHash = {};
+    var tweet1 = { id_str: '1', text: 'hey' };
+    var tweet2 = { id_str: '1', text: 'hey' };
+
+    var eventSpy = spy();
+    ee.on('unique:tweet', eventSpy);
+
+    ondata.call(ee, tweet1);
+    ondata.call(ee, tweet2);
+
+    test.ok(eventSpy.calledOnce);
+    test.done();
+  },
+  'over the amount of saved ids': function(test) {
+    var ee = new EventEmitter();
+    ee._tweets = [];
+    ee._tweetsHash = {};
+
+    for (var i = 0, l = constants.MAX_SAVED_TWEET_IDS; i < l; i++) {
+      ondata.call(ee, { id_str: i.toString(), text: 'hi' });
+    }
+
+    test.equal(ee._tweets.length, constants.MAX_SAVED_TWEET_IDS);
+    test.equal(Object.keys(ee._tweetsHash).length,
+      constants.MAX_SAVED_TWEET_IDS);
+
+    var eventSpy = spy();
+    ee.on('unique:tweet', eventSpy);
+
+    var tweet1 = { id_str: '-200', text: 'hey' };
+    ondata.call(ee, tweet1);
+
+    test.equal(ee._tweets.length, constants.MAX_SAVED_TWEET_IDS);
+    test.equal(Object.keys(ee._tweetsHash).length,
+      constants.MAX_SAVED_TWEET_IDS);
+    test.ok(eventSpy.calledOnce);
+    test.done();
+  }
+};

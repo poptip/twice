@@ -80,6 +80,7 @@ pool.on('reply', function(data) {
   * [Event: 'broker stall'](#event-broker-stall)
   * [Event: 'shed load'](#event-shed-load)
   * [Event: 'tweet'](#event-tweet)
+  * [Event: 'unique:tweet'](#event-uniquetweet)
   * [Event: 'tweet:retweet'](#event-tweetretweet)
   * [Event: 'tweet:retweet:`retweeted_status.id`'](#event-tweetretweetretweeted_status_id)
   * [Event: 'tweet:reply'](#event-tweetreply)
@@ -342,6 +343,11 @@ The host the stream was connected to became overloaded and streams were disconne
 * [tweet](#tweet)
 
 Someone tweets!
+
+### Event: 'unique:tweet'
+* [tweet](#tweet)
+
+A unique Tweet. Tweets are compared for uniqueness by the `id_str` property. The rest of the Tweet events will also have an alias with `unique:` prepended if they are unique. For example: `unique:tweet:retweet`.
 
 ### Event: 'tweet:retweet'
 * [tweet](#tweet)
