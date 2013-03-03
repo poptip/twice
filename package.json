@@ -1,6 +1,6 @@
 {
   "name": "stweam",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Streaming client specifically designed for the Twitter streaming API",
   "main": "./lib/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/markover/stweam.git"
+    "url": "git://github.com/poptip/stweam.git"
   },
   "keywords": [
     "twitter",
