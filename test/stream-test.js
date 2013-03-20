@@ -1,5 +1,6 @@
 var EventEmitter = require('events').EventEmitter;
 var Stream = require('../lib/stream');
+var utils = require('../lib/utils');
 var through = require('through');
 var sinon = require('sinon');
 var spy = sinon.spy;
@@ -114,14 +115,12 @@ exports['response stream suddenly ends'] = function(test) {
 
 
 exports['response stream non 200 status code'] = function(test) {
-  var res = through();
-  res.statusCode = 401;
-
   var client = {
     post: function() {
-      var req = new EventEmitter();
-      process.nextTick(req.emit.bind(req, 'response', res));
-      return req;
+      var ee = new EventEmitter();
+      var err = new utils.createStatusCodeError(401);
+      process.nextTick(ee.emit.bind(ee, 'responseError', err));
+      return ee;
     }
   };
 
@@ -283,11 +282,10 @@ exports['request error'] = function(test) {
     post: function(url, params) {
       test.equal(url, 'http://see.me');
       test.deepEqual(params, { stall_warnings: true });
-      var req = new EventEmitter();
-      req.abort = function() {};
+      var ee = new EventEmitter();
       var err = Error('not connected to the internet');
-      process.nextTick(req.emit.bind(req, 'error', err));
-      return req;
+      process.nextTick(ee.emit.bind(ee, 'requestError', err));
+      return ee;
     }
   };
 
@@ -305,12 +303,11 @@ exports['request timeout'] = function(test) {
     post: function(url, params) {
       test.equal(url, 'http://see.me');
       test.deepEqual(params, { stall_warnings: true });
-      var req = new EventEmitter();
-      req.abort = function() {};
+      var ee = new EventEmitter();
       var err = Error('not connected to the internet');
       err.code = 'ESOCKETTIMEDOUT';
-      process.nextTick(req.emit.bind(req, 'error', err));
-      return req;
+      process.nextTick(ee.emit.bind(ee, 'requestError', err));
+      return ee;
     }
   };
 

@@ -1,6 +1,5 @@
 var EventEmitter = require('events').EventEmitter;
 var Stweam = require('..');
-var streamify = require('streamify');
 var worker = require('../lib/worker');
 var constants = require('../lib/constants');
 
@@ -23,9 +22,9 @@ exports['buffered request'] = {
       return req;
     };
 
-    var stream = streamify();
+    var ee = new EventEmitter();
     var options = { url: 'http://hello.im', no: 'yes' };
-    worker(client, stream, 'get', options, function(err, data) {
+    worker(client, ee, 'get', options, function(err, data) {
       if (err) throw err;
       test.deepEqual(data, { hello: 42 });
     }, test.done);
@@ -46,9 +45,9 @@ exports['buffered request'] = {
       return req;
     };
 
-    var stream = streamify();
+    var ee = new EventEmitter();
     var options = { url: constants.SITE_STREAM.HOST, no: 'yes' };
-    worker(client, stream, 'post', options, function(err, data) {
+    worker(client, ee, 'post', options, function(err, data) {
       if (err) throw err;
       test.deepEqual(data, resp);
     }, test.done);
@@ -64,9 +63,9 @@ exports['buffered request'] = {
       return req;
     };
 
-    var stream = streamify();
+    var ee = new EventEmitter();
     var url = 'http://prince.of/arabia';
-    worker(client, stream, 'get', url, function(err, data) {
+    worker(client, ee, 'get', url, function(err, data) {
       test.ok(err);
       test.equal(err.message, 'something went wrong');
       test.deepEqual(err.options, {
@@ -87,9 +86,9 @@ exports['buffered request'] = {
       return req;
     };
 
-    var stream = streamify();
+    var ee = new EventEmitter();
     var url = 'http://prince.of/arabia';
-    worker(client, stream, 'get', url, function(err, data) {
+    worker(client, ee, 'get', url, function(err, data) {
       test.ok(err);
       test.equal(err.type, 'Service Unavailable');
       test.deepEqual(err.options, {
@@ -115,9 +114,9 @@ exports['buffered request'] = {
       return req;
     };
 
-    var stream = streamify();
+    var ee = new EventEmitter();
     var url = 'http://prince.of/arabia';
-    worker(client, stream, 'post', url, function(err, data) {
+    worker(client, ee, 'post', url, function(err, data) {
       test.ok(err);
       test.equal(err.message, 'we dont like you');
       test.deepEqual(err.options, {
@@ -141,6 +140,6 @@ exports['streaming request'] = function(test) {
     return req;
   };
 
-  var stream = streamify();
-  worker(client, stream, 'post', 'http://google.com', undefined, test.done);
+  var ee = new EventEmitter();
+  worker(client, ee, 'post', 'http://google.com', undefined, test.done);
 };

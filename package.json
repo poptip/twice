@@ -18,7 +18,6 @@
     "eventyoshi": "~0.1.4",
     "jstream": "~0.2.0",
     "request": "~2.11.4",
-    "streamify": "0.1.2",
     "timequeue": "~0.2.0",
     "underscore": "~1.3.3"
   },
