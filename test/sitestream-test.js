@@ -22,12 +22,14 @@ function createSiteStream(users, connected) {
 
   if (connected) {
     stream.connected = true;
+    stream.control_uri = '/a';
     stream.connect = function() {};
   } else {
     stream.connect = function() {
       var self = this;
       self.emit('beforeConnect');
       process.nextTick(function() {
+        self.connected = true;
         self.emit('connect');
         process.nextTick(self.emit.bind(self, 'control', '/a'));
       });
@@ -77,11 +79,7 @@ exports['create site stream'] = {
       var stream = createSiteStream(null);
 
       stream.on('control', function() {
-        var HOST = SiteStream.HOST;
-
-        test.equal(stream.add_user_uri, HOST + '/a/add_user.json');
-        test.equal(stream.remove_user_uri, HOST + '/a/remove_user.json');
-        test.equal(stream.info_uri, HOST + '/a/info.json');
+        test.equal(stream.control_uri, '/a');
         test.equal(stream.users.length, 0);
         test.equal(stream.usersInStream.length, 0);
         test.equal(stream.usersInQueue.length, 0);
