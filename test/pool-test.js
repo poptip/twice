@@ -116,8 +116,8 @@ exports['add users'] = {
 
       test.equal(pool.streams.length, 1);
 
-      pool.addUsers(['23', '32']);
-      
+      pool.addUsers(['23', '32', '42']);
+
       test.equal(pool.users.length, 3);
       test.equal(pool.usersInQueue.length, 2);
       test.equal(pool.usersInStream.length, 1);
@@ -133,16 +133,6 @@ exports['add users'] = {
         test.done();
       });
     });
-  },
-  'that has already been added': function(test) {
-    var pool = createPool();
-
-    pool.addUser('1');
-    test.throws(function() {
-      pool.addUser('1');
-    }, /User 1 already in pool/);
-
-    test.done();
   }
 };
 
@@ -169,7 +159,7 @@ exports['remove user'] = {
       test.ok(!pool.hasUser('2'));
       test.ok(!pool.hasUserInQueue('2'));
       test.ok(!pool.hasUserInStream('2'));
-      
+
       test.done();
     });
   },
@@ -199,7 +189,7 @@ exports['remove user'] = {
         test.ok(!pool.hasUser('2'));
         test.ok(!pool.hasUserInQueue('2'));
         test.ok(!pool.hasUserInStream('2'));
-        
+
         test.done();
       });
     });
