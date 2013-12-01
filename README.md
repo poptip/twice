@@ -228,11 +228,11 @@ This is emitted if the maximum retry is reached for a method with a certain algo
 This event is emitted every time a full JSON object is received from twitter. Useful for debugging.
 
 ### Event: 'warning'
-* `String` - Code, ex: `FALLING_BEHIND`.
+* `String` - Code, ex: `FALLING_BEHIND` or `FOLLOWS_OVER_LIMIT`.
 * `String` - Message.
-* `number` - Queue full percentage.
+* `number` - Queue full percentage or user id.
 
-Emitted when the client is falling behind on reading tweets. Will occur a maximum of about once in 5 minutes. It really should not happen because this is node, come on.
+Emitted when the client has to be warned about something.
 
 ### Event: 'delete'
 * `String` - ID of status to delete.
