@@ -80,7 +80,6 @@ pool.on('reply', function(data) {
   * [Event: 'broker stall'](#event-broker-stall)
   * [Event: 'shed load'](#event-shed-load)
   * [Event: 'tweet'](#event-tweet)
-  * [Event: 'unique:tweet'](#event-uniquetweet)
   * [Event: 'tweet:retweet'](#event-tweetretweet)
   * [Event: 'tweet:retweet:`retweeted_status.id`'](#event-tweetretweetretweeted_status_id)
   * [Event: 'tweet:reply'](#event-tweetreply)
@@ -122,6 +121,7 @@ pool.on('reply', function(data) {
   * [SiteStream#hasUserInStream(twitterID)](#sitestreamhasuserinstreamtwitterid)
   * [SiteStream#hasUserInQueue(twitterID)](#sitestreamhasuserinqueuetwitterid)
   * [SiteStream#info(callback(err, info))](#sitestreaminfocallbackerr-info)
+  * [Event: 'unique:tweet'](#event-uniquetweet)
   * [Event: 'addUsersToQueue'](#event-adduserstoqueue)
   * [Event: 'addUsersToStream'](#event-adduserstostream)
   * [Event: 'failedToAddUsers'](#event-failedtoaddusers)
@@ -142,6 +142,9 @@ pool.on('reply', function(data) {
   * [Pool#createSampleStream([parameters])](#poolcreatesamplestreamparameters)
   * [Pool#createFirehose([parameters])](#poolcreatefirehoseparameters)
   * [Pool#createUserStream([parameters])](#poolcreateuserstreamparameters)
+* [Stweam#get(options, callback(err, data))](#stweamgetoptions-callbackerr-data)
+* [Stweam#post(url, body, callback(err, data))](#stweamposturl-body-callbackerr-data)
+* [Stweam#getTimeline(url, [parameters], [callback(err, tweets)])](#stweamgettimelineurl-parameters-callbackerr-tweets)
 
 ### new Stweam(credentials)
 
@@ -158,7 +161,7 @@ First argument must be an object with oauth credentials.
 
 All methods added are specifically designed to facilitate usage of Twitter streams.
 
-All streams have a `connected` key indicating if the stream is currently connected. Constructors last argument can be an object of parameters. [See here](https://dev.twitter.com/docs/api/2/get/user) for a list of parameters and their descriptions.
+All streams have a `connected` key indicating if the stream is currently connected. Constructors last argument can be an object of parameters.
 
 ### Stream
 Stweam creates several types of streams. They all have the following properties, methods, and events.
@@ -339,15 +342,13 @@ An internal issue disconnected the stream.
 
 The host the stream was connected to became overloaded and streams were disconnected to balance load. Reconnect as usual.
 
+### Tweets
+
+All streams and timelines will emit the following events.
 ### Event: 'tweet'
-* [tweet](#tweet)
+* [tweet](#tweetj)
 
 Someone tweets!
-
-### Event: 'unique:tweet'
-* [tweet](#tweet)
-
-A unique Tweet. Tweets are compared for uniqueness by the `id_str` property. The rest of the Tweet events will also have an alias with `unique:` prepended if they are unique. For example: `unique:tweet:retweet`.
 
 ### Event: 'tweet:retweet'
 * [tweet](#tweet)
@@ -381,7 +382,7 @@ Convenient event for listening for replies to a certain user.
 
 
 ### Stweam#createPublicStream([parameters])
-Create an instance of a public stream.
+Create an instance of a [public stream](https://dev.twitter.com/docs/api/1.1/post/statuses/filter).
 
 ### PublicStream#track(phrase)
 Track a phrase with this stream. Will reconnect stream.
@@ -391,15 +392,15 @@ Untrack a phrase. Will reconnect stream.
 
 
 ### Stweam#createSampleStream([parameters])
-Create an instance of a sample stream. Emits random sample of public statuses.
+Create an instance of a [sample stream](https://dev.twitter.com/docs/api/1.1/get/statuses/sample). Emits random sample of public statuses.
 
 
 ### Stweam#createFirehose([parameters])
-Create an instance of a firehose. Emits all public tweets. Requires special permission to use.
+Create an instance of a [firehose](https://dev.twitter.com/docs/api/1.1/get/statuses/firehose). Emits all public tweets. Requires special permission to use.
 
 
 ### Stweam#createUserStream([parameters])
-Create an instance of a user stream. [See here](https://dev.twitter.com/docs/api/2/get/user) for a list of parameters.
+Create an instance of a [user stream](https://dev.twitter.com/docs/api/2/get/user).
 
 ### UserStream#track(phrase)
 Track a phrase with this stream. Will reconnect stream.
@@ -573,6 +574,11 @@ For example, the event `friends` would be emitted like this: `function (friends,
 
 In addition, an event with the user's Twittter ID appended to the event name is emitted. For user with an ID of `1234` the event `friends:1234` would be emitted with `friends` as the first argument.
 
+### Event: 'unique:tweet'
+* [tweet](#tweet)
+
+A unique Tweet. Tweets are compared for uniqueness by the `id_str` property. The rest of the Tweet events will also have an alias with `unique:` prepended if they are unique. For example: `unique:tweet:retweet`.
+
 ### Event: 'addUsersToQueue'
 * `Array.<String>` - Array of Twitter IDs.
 
@@ -650,6 +656,16 @@ Create an instance of a user stream and route its events to the pool.
 ### Events
 Pool instances are proxied all events from all underlying site stream instances.
 
+### Stweam#get(options, callback(err, data))
+Make a GET request. `options` can be a url or a [request](https://github.com/mikeal/request) options. 
+
+### Stweam#post(url, [body], callback(err, data))
+Make a POST request. `body` can be a string or an object.
+
+### Stweam#getTimeline(url, [parameters], [callback(err, tweets)])
+Stweam provides added sugar for getting timelines. The `parameters.count` option is capped at 200. But if it's above that, stweam will keep requesting more tweets until the given count is reached.
+
+If you don't want to buffer all of the tweets, it returns an event emitter that will emit 
 
 # Response Objects
 
