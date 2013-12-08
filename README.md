@@ -11,7 +11,7 @@ This module contains several data structures that ease working with twitter stre
 * Back off linearly or exponentially depending on error type when reconnecting.
 * Respect Twitter's limits when adding users to a site stream.
 * Make sure users are added to site streams with an extra request.
-* If there is an HTTP error adding a user to a site stream, retries with exponential timeouts.
+* If there is an HTTP error adding a user to a site stream, retries with exponential backoff.
 * Automatically manage a pool of site streams creating new streams as needed.
 * Convenient events emitted for various tweet types.
 * Uses a streaming JSON parser for faster less memory hogging processing.
@@ -87,15 +87,21 @@ pool.on('reply', function(data) {
   * [Event: 'tweet:mention'](#event-tweetmention)
   * [Event: 'tweet:mention:`in_reply_to_screen_name`'](#event-tweetmentionin_reply_to_screen_name)
 * [Stweam#createPublicStream([parameters])](#stweamcreatepublicstreamparameters)
-  * [PublicStream#track(value)](#publicstreamtrackvalue)
-  * [PublicStream#untrack(value)](#publicstreamuntrackvalue)
+  * [PublicStream#track(value)](#publicstreamtrackphrase)
+  * [PublicStream#untrack(value)](#publicstreamuntrackphrase)
+  * [PublicStream#tracking(value)](#publicstreamtrackingphrase)
+  * [PublicStream#trackCount(value)](#publicstreamtrackcountphrase)
 * [Stweam#createSampleStream([parameters])](#stweamcreatesamplestreamparameters)
 * [Stweam#createFirehose([parameters])](#stweamcreatefirehoseparameters)
 * [Stweam#createUserStream([parameters])](#stweamcreateuserstreamparameters)
   * [UserStream#track(value)](#userstreamtrackvalue)
   * [UserStream#untrack(value)](#userstreamuntrackvalue)
+  * [UserStream#tracking(value)](#publicstreamtrackingvalue)
+  * [UserStream#trackCount(value)](#publicstreamtrackcountvalue)
   * [UserStream#follow(twitterID)](#userstreamfollowtwitterid)
   * [UserStream#unfollow(twitterID)](#userstreamunfollowtwitterid)
+  * [UserStream#following(value)](#publicstreamfollowingtwitterid)
+  * [UserStream#followCount(value)](#publicstreamfollowcounttwitterid)
   * [Event: 'friends'](#event-friends)
   * [Event: 'block'](#event-block)
   * [Event: 'unblock'](#event-unblock)
@@ -345,6 +351,7 @@ The host the stream was connected to became overloaded and streams were disconne
 ### Tweets
 
 All streams and timelines will emit the following events.
+
 ### Event: 'tweet'
 * [tweet](#tweetj)
 
@@ -390,6 +397,12 @@ Track a phrase with this stream. Will reconnect stream.
 ### PublicStream#untrack(phrase)
 Untrack a phrase. Will reconnect stream.
 
+### PublicStream#tracking(phrase)
+Returns true if this stream is tracking the phrase.
+
+### PublicStream#trackCount()
+Returns the amount of phrases being tracked by this stream.
+
 
 ### Stweam#createSampleStream([parameters])
 Create an instance of a [sample stream](https://dev.twitter.com/docs/api/1.1/get/statuses/sample). Emits random sample of public statuses.
@@ -408,11 +421,23 @@ Track a phrase with this stream. Will reconnect stream.
 ### UserStream#untrack(phrase)
 Untrack a phrase. Will reconnect stream.
 
+### UserStream#tracking(phrase)
+Returns true if this stream is tracking the phrase.
+
+### UserStream#trackCount()
+Returns the amount of phrases being tracked by this stream.
+
 ### UserStream#follow(twitterID)
 Follow a user's timeline with this stream. Will reconnect stream.
 
 ### UserStream#unfollow(twitterID)
-Unfollow user. Will reconnect stream.
+Unfollow user's timeline. Will reconnect stream.
+
+### UserStream#following(twitterID)
+Returns true if this stream is following the twitter ID.
+
+### UserStream#followCount()
+Returns the amount of twitter IDs being followed by this stream.
 
 ### Event: 'friends'
 * `Array.<String>` - An array of Twitter IDs.
@@ -796,7 +821,7 @@ Several events emit different response objects. Here you'll find examples of wha
 
 
 # Tests
-Tests are written with [mocha](http://visionmedia.github.com/mocha/)
+Tests are written with [nodeunit](https://github.com/caolan/nodeunit)
 
 ```bash
 npm test

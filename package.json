@@ -11,8 +11,9 @@
     "url": "git://github.com/poptip/stweam.git"
   },
   "keywords": [
-    "twitter",
-    "stream"
+    "api",
+    "stream",
+    "twitter"
   ],
   "dependencies": {
     "eventyoshi": "~0.1.4",
