@@ -90,18 +90,18 @@ pool.on('reply', function(data) {
   * [PublicStream#track(value)](#publicstreamtrackphrase)
   * [PublicStream#untrack(value)](#publicstreamuntrackphrase)
   * [PublicStream#tracking(value)](#publicstreamtrackingphrase)
-  * [PublicStream#trackCount(value)](#publicstreamtrackcountphrase)
+  * [PublicStream#trackCount](#publicstreamtrackcount)
 * [Stweam#createSampleStream([parameters])](#stweamcreatesamplestreamparameters)
 * [Stweam#createFirehose([parameters])](#stweamcreatefirehoseparameters)
 * [Stweam#createUserStream([parameters])](#stweamcreateuserstreamparameters)
   * [UserStream#track(value)](#userstreamtrackvalue)
   * [UserStream#untrack(value)](#userstreamuntrackvalue)
   * [UserStream#tracking(value)](#publicstreamtrackingvalue)
-  * [UserStream#trackCount(value)](#publicstreamtrackcountvalue)
+  * [UserStream#trackCount](#publicstreamtrackcount)
   * [UserStream#follow(twitterID)](#userstreamfollowtwitterid)
   * [UserStream#unfollow(twitterID)](#userstreamunfollowtwitterid)
   * [UserStream#following(value)](#publicstreamfollowingtwitterid)
-  * [UserStream#followCount(value)](#publicstreamfollowcounttwitterid)
+  * [UserStream#followCount](#publicstreamfollowcount)
   * [Event: 'friends'](#event-friends)
   * [Event: 'block'](#event-block)
   * [Event: 'unblock'](#event-unblock)
@@ -400,8 +400,8 @@ Untrack a phrase. Will reconnect stream.
 ### PublicStream#tracking(phrase)
 Returns true if this stream is tracking the phrase.
 
-### PublicStream#trackCount()
-Returns the amount of phrases being tracked by this stream.
+### PublicStream#trackCount
+The amount of phrases being tracked by this stream.
 
 
 ### Stweam#createSampleStream([parameters])
@@ -425,7 +425,7 @@ Untrack a phrase. Will reconnect stream.
 Returns true if this stream is tracking the phrase.
 
 ### UserStream#trackCount()
-Returns the amount of phrases being tracked by this stream.
+The amount of phrases being tracked by this stream.
 
 ### UserStream#follow(twitterID)
 Follow a user's timeline with this stream. Will reconnect stream.
@@ -437,7 +437,7 @@ Unfollow user's timeline. Will reconnect stream.
 Returns true if this stream is following the twitter ID.
 
 ### UserStream#followCount()
-Returns the amount of twitter IDs being followed by this stream.
+The amount of twitter IDs being followed by this stream.
 
 ### Event: 'friends'
 * `Array.<String>` - An array of Twitter IDs.

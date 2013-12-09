@@ -40,12 +40,12 @@ exports['create param methods'] = {
       var stream = mockStream('foo');
       test.equal(stream.params.track, 'foo');
       test.ok(stream.tracking('foo'));
-      test.equal(stream.trackCount(), 1);
+      test.equal(stream.trackCount, 1);
 
       stream.track('bar');
       test.equal(stream.params.track, 'foo,bar');
       test.ok(stream.tracking('bar'));
-      test.equal(stream.trackCount(), 2);
+      test.equal(stream.trackCount, 2);
       test.ok(stream.reconnect.called);
       test.done();
     },
@@ -53,7 +53,7 @@ exports['create param methods'] = {
       var stream = mockStream();
       stream.track('foo');
       test.ok(stream.tracking('foo'));
-      test.equal(stream.trackCount(), 1);
+      test.equal(stream.trackCount, 1);
 
       test.throws(function() {
         stream.track('foo');
@@ -65,7 +65,7 @@ exports['create param methods'] = {
       stream.track(['zam', 'zoom']);
       test.ok(stream.tracking('zam'));
       test.ok(stream.tracking('zoom'));
-      test.equal(stream.trackCount(), 2);
+      test.equal(stream.trackCount, 2);
       test.equal(stream.params.track, 'zam,zoom');
       test.equal(stream.reconnect.callCount, 1);
       test.done();
@@ -79,7 +79,7 @@ exports['create param methods'] = {
       stream.untrack('foo');
       test.ok(stream.tracking('bar'));
       test.ok(!stream.tracking('foo'));
-      test.equal(stream.trackCount(), 1);
+      test.equal(stream.trackCount, 1);
       test.equal(stream.params.track, 'bar');
       test.ok(stream.reconnect.calledTwice);
       test.done();
