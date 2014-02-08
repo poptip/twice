@@ -41,11 +41,13 @@ exports['create param methods'] = {
       test.equal(stream.params.track, 'foo');
       test.ok(stream.tracking('foo'));
       test.equal(stream.trackCount, 1);
+      test.deepEqual(stream.trackList, ['foo']);
 
       stream.track('bar');
-      test.equal(stream.params.track, 'foo,bar');
+      test.equal(stream.params.track, 'bar,foo');
       test.ok(stream.tracking('bar'));
       test.equal(stream.trackCount, 2);
+      test.deepEqual(stream.trackList, ['bar', 'foo']);
       test.ok(stream.reconnect.called);
       test.done();
     },
@@ -54,6 +56,7 @@ exports['create param methods'] = {
       stream.track('foo');
       test.ok(stream.tracking('foo'));
       test.equal(stream.trackCount, 1);
+      test.deepEqual(stream.trackList, ['foo']);
 
       test.throws(function() {
         stream.track('foo');
@@ -66,6 +69,7 @@ exports['create param methods'] = {
       test.ok(stream.tracking('zam'));
       test.ok(stream.tracking('zoom'));
       test.equal(stream.trackCount, 2);
+      test.deepEqual(stream.trackList, ['zam', 'zoom']);
       test.equal(stream.params.track, 'zam,zoom');
       test.equal(stream.reconnect.callCount, 1);
       test.done();
@@ -80,6 +84,7 @@ exports['create param methods'] = {
       test.ok(stream.tracking('bar'));
       test.ok(!stream.tracking('foo'));
       test.equal(stream.trackCount, 1);
+      test.deepEqual(stream.trackList, ['bar']);
       test.equal(stream.params.track, 'bar');
       test.ok(stream.reconnect.calledTwice);
       test.done();

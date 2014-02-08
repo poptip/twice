@@ -403,14 +403,14 @@ Returns true if this stream is tracking the phrase.
 ### PublicStream#trackCount
 The amount of phrases being tracked by this stream.
 
+### PublicStream#trackList
+The phrases being tracked.
 
 ### Stweam#createSampleStream([parameters])
 Create an instance of a [sample stream](https://dev.twitter.com/docs/api/1.1/get/statuses/sample). Emits random sample of public statuses.
 
-
 ### Stweam#createFirehose([parameters])
 Create an instance of a [firehose](https://dev.twitter.com/docs/api/1.1/get/statuses/firehose). Emits all public tweets. Requires special permission to use.
-
 
 ### Stweam#createUserStream([parameters])
 Create an instance of a [user stream](https://dev.twitter.com/docs/api/2/get/user).
@@ -436,8 +436,11 @@ Unfollow user's timeline. Will reconnect stream.
 ### UserStream#following(twitterID)
 Returns true if this stream is following the twitter ID.
 
-### UserStream#followCount()
+### UserStream#followCount
 The amount of twitter IDs being followed by this stream.
+
+### UserStream#followList
+The list of twitter IDs being followed.
 
 ### Event: 'friends'
 * `Array.<String>` - An array of Twitter IDs.
