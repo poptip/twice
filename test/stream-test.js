@@ -11,7 +11,7 @@ exports['create a stream with no params'] = function(test) {
   res.statusCode = 200;
 
   var client = {
-    post: function(url, params) {
+    get: function(url, params) {
       test.equal(url, 'http://see.me');
       test.deepEqual(params, { stall_warnings: true });
       var req = new EventEmitter();
@@ -40,7 +40,7 @@ exports['create a stream with params'] = function(test) {
   res.statusCode = 200;
 
   var client = {
-    post: function(url, params) {
+    get: function(url, params) {
       test.equal(url, 'http://see.me');
       test.deepEqual(params, { stall_warnings: true, count: 500 });
       var req = new EventEmitter();
@@ -65,7 +65,7 @@ exports['response stream closes'] = function(test) {
   res.statusCode = 200;
 
   var client = {
-    post: function() {
+    get: function() {
       var req = new EventEmitter();
       process.nextTick(req.emit.bind(req, 'response', res));
       return req;
@@ -92,7 +92,7 @@ exports['response stream suddenly ends'] = function(test) {
   res.statusCode = 200;
 
   var client = {
-    post: function() {
+    get: function() {
       var req = new EventEmitter();
       process.nextTick(req.emit.bind(req, 'response', res));
       return req;
@@ -116,7 +116,7 @@ exports['response stream suddenly ends'] = function(test) {
 
 exports['response stream non 200 status code'] = function(test) {
   var client = {
-    post: function() {
+    get: function() {
       var ee = new EventEmitter();
       var err = new utils.createStatusCodeError(401);
       process.nextTick(ee.emit.bind(ee, 'responseError', err));
@@ -147,7 +147,7 @@ exports['response stream error'] = function(test) {
   res.statusCode = 200;
 
   var client = {
-    post: function() {
+    get: function() {
       var req = new EventEmitter();
       process.nextTick(req.emit.bind(req, 'response', res));
       return req;
@@ -161,7 +161,7 @@ exports['response stream error'] = function(test) {
 
   stream.on('connect', function() {
     process.nextTick(function() {
-      res.emit('error', Error('oh no'));
+      res.emit('error', new Error('oh no'));
     });
   });
 
@@ -180,7 +180,7 @@ exports['response stream error with parsing JSON'] = function(test) {
   res.statusCode = 200;
 
   var client = {
-    post: function() {
+    get: function() {
       var req = new EventEmitter();
       process.nextTick(req.emit.bind(req, 'response', res));
       return req;
@@ -214,7 +214,7 @@ exports['response stream timeout'] = function(test) {
   res.statusCode = 200;
 
   var client = {
-    post: function() {
+    get: function() {
       var req = new EventEmitter();
       process.nextTick(req.emit.bind(req, 'response', res));
       return req;
@@ -246,7 +246,7 @@ exports['response stream receives data and then times out'] = function(test) {
   res.statusCode = 200;
 
   var client = {
-    post: function() {
+    get: function() {
       var req = new EventEmitter();
       process.nextTick(req.emit.bind(req, 'response', res));
       return req;
@@ -279,11 +279,11 @@ exports['response stream receives data and then times out'] = function(test) {
 
 exports['request error'] = function(test) {
   var client = {
-    post: function(url, params) {
+    get: function(url, params) {
       test.equal(url, 'http://see.me');
       test.deepEqual(params, { stall_warnings: true });
       var ee = new EventEmitter();
-      var err = Error('not connected to the internet');
+      var err = new Error('not connected to the internet');
       process.nextTick(ee.emit.bind(ee, 'requestError', err));
       return ee;
     }
@@ -300,11 +300,11 @@ exports['request error'] = function(test) {
 
 exports['request timeout'] = function(test) {
   var client = {
-    post: function(url, params) {
+    get: function(url, params) {
       test.equal(url, 'http://see.me');
       test.deepEqual(params, { stall_warnings: true });
       var ee = new EventEmitter();
-      var err = Error('not connected to the internet');
+      var err = new Error('not connected to the internet');
       err.code = 'ESOCKETTIMEDOUT';
       process.nextTick(ee.emit.bind(ee, 'requestError', err));
       return ee;
@@ -329,7 +329,7 @@ exports['pause and resume stream while connected'] = function(test) {
   res.statusCode = 200;
 
   var client = {
-    post: function() {
+    get: function() {
       var req = new EventEmitter();
       process.nextTick(req.emit.bind(req, 'response', res));
       return req;
@@ -372,7 +372,7 @@ exports['pause and resume stream while not connected'] = function(test) {
   res.statusCode = 200;
 
   var client = {
-    post: function() {
+    get: function() {
       var req = new EventEmitter();
       process.nextTick(req.emit.bind(req, 'response', res));
       return req;

@@ -1,4 +1,3 @@
-var url = require('url');
 var Stweam = require('..');
 var MAX_COUNT = require('../lib/constants').MAX_TIMELINE_COUNT;
 var spy = require('sinon').spy;
@@ -49,8 +48,7 @@ function fakeTweets(amount, retweets) {
  * @param {Number} retweets
  */
 function mockGet(client, test, expectParams, tweets, retweets) {
-  client.get = function(uri, callback) {
-    var params = url.parse(uri, true).query;
+  client.get = function(uri, params, callback) {
     test.deepEqual(params, expectParams);
     process.nextTick(function() {
       if (callback) {
@@ -63,7 +61,7 @@ function mockGet(client, test, expectParams, tweets, retweets) {
 
 exports['use the event emitter'] = function(test) {
   var client = new Stweam();
-  mockGet(client, test, { include_rts: 'true' }, 42, 0);
+  mockGet(client, test, { include_rts: true }, 42, 0);
 
   var ee = client.getTimeline('timeline');
   var tweetspy = spy();
@@ -78,7 +76,7 @@ exports['use the event emitter'] = function(test) {
 
 exports['use a callback'] = function(test) {
   var client = new Stweam();
-  mockGet(client, test, { include_rts: 'true' }, 42, 0);
+  mockGet(client, test, { include_rts: true }, 42, 0);
 
   client.getTimeline('timeline', function(err, tweets) {
     test.ok(!err);
@@ -90,7 +88,7 @@ exports['use a callback'] = function(test) {
 
 exports['set include_rts to true'] = function(test) {
   var client = new Stweam();
-  mockGet(client, test, { include_rts: 'true' }, 20, 10);
+  mockGet(client, test, { include_rts: true }, 20, 10);
 
   var params = { include_rts: true };
   client.getTimeline('timeline', params, function(err, tweets) {
@@ -110,7 +108,7 @@ exports['set include_rts to true'] = function(test) {
 
 exports['set include_rts to false'] = function(test) {
   var client = new Stweam();
-  mockGet(client, test, { include_rts: 'true' }, 20, 10);
+  mockGet(client, test, { include_rts: true }, 20, 10);
 
   var params = { include_rts: false };
   client.getTimeline('timeline', params, function(err, tweets) {
@@ -131,7 +129,7 @@ exports['set include_rts to false'] = function(test) {
 exports['over max amount of tweets per request'] = function(test) {
   var  client = new Stweam();
   mockGet(client, test, {
-    include_rts: 'true',
+    include_rts: true,
     count: MAX_COUNT
   }, MAX_COUNT, 0);
 
@@ -143,7 +141,7 @@ exports['over max amount of tweets per request'] = function(test) {
     tweetspy();
     if (tweetspy.callCount === MAX_COUNT) {
       mockGet(client, test, {
-        include_rts: 'true',
+        include_rts: true,
         count: half,
         since_id: tweet.id_str
       }, half, 0);
@@ -159,7 +157,7 @@ exports['over max amount of tweets per request'] = function(test) {
 exports['exactly max amount of tweets per request'] = function(test) {
   var  client = new Stweam();
   mockGet(client, test, {
-    include_rts: 'true',
+    include_rts: true,
     count: MAX_COUNT
   }, MAX_COUNT, 0);
 
