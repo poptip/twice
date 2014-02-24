@@ -648,6 +648,9 @@ List of users in pool.
 ### Pool#usersInStream
 List of users in pool that are actively being listened to.
 
+### Pool#usersInStreamHash
+Object with user ids and usernames as keys and values respectively.
+
 ### Pool#usersInQueue
 List of users in pool which are queued to be added to a stream.
 
