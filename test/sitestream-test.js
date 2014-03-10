@@ -83,6 +83,7 @@ exports['create site stream'] = {
         test.equal(stream.users.length, 0);
         test.equal(stream.usersInStream.length, 0);
         test.equal(stream.usersInQueue.length, 0);
+        test.equal(stream.failedToAddUsers.length, 0);
 
         test.done();
       });
@@ -153,6 +154,7 @@ exports['create site stream'] = {
         test.equal(stream.users.length, 2);
         test.equal(stream.usersInStream.length, 2);
         test.equal(stream.usersInQueue.length, 0);
+        test.equal(stream.failedToAddUsers.length, 0);
 
         test.ok(stream.hasUser('1'));
         test.ok(stream.hasUserInStream('1'));
@@ -237,6 +239,7 @@ exports['create site stream'] = {
         test.equal(stream.users.length, totalUsers);
         test.equal(stream.usersInStream.length, totalUsersAdded);
         test.equal(stream.usersInQueue.length, totalUsers - totalUsersAdded);
+        test.equal(stream.failedToAddUsers.length, 0);
 
         users.slice(totalUsersAdded).forEach(function(twitterID) {
           test.ok(stream.hasUser(twitterID));
@@ -277,6 +280,7 @@ exports['add a user to site stream'] = {
     test.equal(stream.users.length, 0);
     test.equal(stream.usersInStream.length, 0);
     test.equal(stream.usersInQueue.length, 0);
+    test.equal(stream.failedToAddUsers.length, 0);
 
     test.ok(!stream.hasUser('42'));
     test.ok(!stream.hasUserInStream('42'));
@@ -287,6 +291,7 @@ exports['add a user to site stream'] = {
     test.equal(stream.users.length, 1);
     test.equal(stream.usersInStream.length, 0);
     test.equal(stream.usersInQueue.length, 1);
+    test.equal(stream.failedToAddUsers.length, 0);
 
     test.ok(stream.hasUser('42'));
     test.ok(!stream.hasUserInStream('42'));
@@ -296,6 +301,7 @@ exports['add a user to site stream'] = {
       test.equal(stream.users.length, 1);
       test.equal(stream.usersInStream.length, 1);
       test.equal(stream.usersInQueue.length, 0);
+      test.equal(stream.failedToAddUsers.length, 0);
 
       test.ok(stream.hasUser('42'));
       test.ok(stream.hasUserInStream('42'));
@@ -333,6 +339,7 @@ exports['add a user to site stream'] = {
         test.equal(stream.users.length, 3);
         test.equal(stream.usersInStream.length, 0);
         test.equal(stream.usersInQueue.length, 3);
+        test.equal(stream.failedToAddUsers.length, 0);
 
         test.ok(!stream.hasUser('42'));
         test.ok(!stream.hasUserInStream('42'));
@@ -343,6 +350,7 @@ exports['add a user to site stream'] = {
         test.equal(stream.users.length, 4);
         test.equal(stream.usersInStream.length, 0);
         test.equal(stream.usersInQueue.length, 4);
+        test.equal(stream.failedToAddUsers.length, 0);
 
         test.ok(stream.hasUser('42'));
         test.ok(!stream.hasUserInStream('42'));
@@ -363,6 +371,7 @@ exports['add a user to site stream'] = {
         test.equal(stream.users.length, 4);
         test.equal(stream.usersInStream.length, 3);
         test.equal(stream.usersInQueue.length, 1);
+        test.equal(stream.failedToAddUsers.length, 0);
 
         test.ok(stream.hasUser('42'));
         test.ok(!stream.hasUserInStream('42'));
@@ -372,6 +381,7 @@ exports['add a user to site stream'] = {
           test.equal(stream.users.length, 4);
           test.equal(stream.usersInStream.length, 4);
           test.equal(stream.usersInQueue.length, 0);
+          test.equal(stream.failedToAddUsers.length, 0);
 
           test.ok(stream.hasUser('42'));
           test.ok(stream.hasUserInStream('42'));
@@ -416,6 +426,7 @@ exports['add a user to site stream'] = {
       test.equal(stream.users.length, 3);
       test.equal(stream.usersInStream.length, 0);
       test.equal(stream.usersInQueue.length, 3);
+      test.equal(stream.failedToAddUsers.length, 0);
 
       test.ok(!stream.hasUser('42'));
       test.ok(!stream.hasUserInStream('42'));
@@ -426,6 +437,7 @@ exports['add a user to site stream'] = {
       test.equal(stream.users.length, 4);
       test.equal(stream.usersInStream.length, 0);
       test.equal(stream.usersInQueue.length, 4);
+      test.equal(stream.failedToAddUsers.length, 0);
 
       test.ok(stream.hasUser('42'));
       test.ok(!stream.hasUserInStream('42'));
@@ -436,6 +448,7 @@ exports['add a user to site stream'] = {
         test.equal(stream.users.length, 4);
         test.equal(stream.usersInStream.length, 4);
         test.equal(stream.usersInQueue.length, 0);
+        test.equal(stream.failedToAddUsers.length, 0);
 
         test.ok(stream.hasUser('42'));
         test.ok(stream.hasUserInStream('42'));
@@ -472,6 +485,7 @@ exports['add a user to site stream'] = {
     test.equal(stream.users.length, 0);
     test.equal(stream.usersInStream.length, 0);
     test.equal(stream.usersInQueue.length, 0);
+    test.equal(stream.failedToAddUsers.length, 0);
 
     test.ok(!stream.hasUser('42'));
     test.ok(!stream.hasUserInStream('42'));
@@ -482,6 +496,7 @@ exports['add a user to site stream'] = {
     test.equal(stream.users.length, 1);
     test.equal(stream.usersInStream.length, 0);
     test.equal(stream.usersInQueue.length, 1);
+    test.equal(stream.failedToAddUsers.length, 0);
 
     test.ok(stream.hasUser('42'));
     test.ok(!stream.hasUserInStream('42'));
@@ -495,6 +510,7 @@ exports['add a user to site stream'] = {
       test.equal(stream.users.length, 0);
       test.equal(stream.usersInStream.length, 0);
       test.equal(stream.usersInQueue.length, 0);
+      test.equal(stream.failedToAddUsers.length, 1);
 
       test.ok(!stream.hasUser('42'));
       test.ok(!stream.hasUserInStream('42'));
@@ -561,6 +577,7 @@ exports['add a user to site stream'] = {
     test.equal(stream.users.length, 0);
     test.equal(stream.usersInStream.length, 0);
     test.equal(stream.usersInQueue.length, 0);
+    test.equal(stream.failedToAddUsers.length, 0);
 
     test.ok(!stream.hasUser('42'));
     test.ok(!stream.hasUserInStream('42'));
@@ -571,6 +588,7 @@ exports['add a user to site stream'] = {
     test.equal(stream.users.length, 1);
     test.equal(stream.usersInStream.length, 0);
     test.equal(stream.usersInQueue.length, 1);
+    test.equal(stream.failedToAddUsers.length, 0);
 
     test.ok(stream.hasUser('42'));
     test.ok(!stream.hasUserInStream('42'));
@@ -580,6 +598,7 @@ exports['add a user to site stream'] = {
       test.equal(stream.users.length, 1);
       test.equal(stream.usersInStream.length, 1);
       test.equal(stream.usersInQueue.length, 0);
+      test.equal(stream.failedToAddUsers.length, 0);
 
       test.ok(stream.hasUser('42'));
       test.ok(stream.hasUserInStream('42'));
@@ -607,6 +626,7 @@ exports['add many users to site stream'] = {
     test.equal(stream.users.length, 0);
     test.equal(stream.usersInStream.length, 0);
     test.equal(stream.usersInQueue.length, 0);
+    test.equal(stream.failedToAddUsers.length, 0);
 
     var totalUsers = Math.floor(SiteStream.MAX_USERS_PER_REQUEST / 3);
     var users = createUsers(totalUsers);
@@ -623,6 +643,7 @@ exports['add many users to site stream'] = {
     test.equal(stream.users.length, totalUsers);
     test.equal(stream.usersInStream.length, 0);
     test.equal(stream.usersInQueue.length, totalUsers);
+    test.equal(stream.failedToAddUsers.length, 0);
 
     stream.info = function(callback) {
       var userInfo = users.map(function(twitterID) {
@@ -640,6 +661,7 @@ exports['add many users to site stream'] = {
       test.equal(stream.users.length, totalUsers);
       test.equal(stream.usersInStream.length, totalUsers);
       test.equal(stream.usersInQueue.length, 0);
+      test.equal(stream.failedToAddUsers.length, 0);
 
       users.forEach(function(twitterID) {
         test.ok(stream.hasUser(twitterID));
@@ -664,6 +686,7 @@ exports['add many users to site stream'] = {
     test.equal(stream.users.length, 0);
     test.equal(stream.usersInStream.length, 0);
     test.equal(stream.usersInQueue.length, 0);
+    test.equal(stream.failedToAddUsers.length, 0);
 
     var totalUsers = Math.floor(SiteStream.MAX_USERS_PER_REQUEST * 2.5);
     var users = createUsers(totalUsers);
@@ -680,6 +703,7 @@ exports['add many users to site stream'] = {
     test.equal(stream.users.length, totalUsers);
     test.equal(stream.usersInStream.length, 0);
     test.equal(stream.usersInQueue.length, totalUsers);
+    test.equal(stream.failedToAddUsers.length, 0);
 
     stream.info = function(callback) {
       process.nextTick(function() {
@@ -704,6 +728,7 @@ exports['add many users to site stream'] = {
       test.equal(stream.users.length, totalUsers);
       test.equal(stream.usersInStream.length, totalUsersAdded);
       test.equal(stream.usersInQueue.length, totalUsers - totalUsersAdded);
+      test.equal(stream.failedToAddUsers.length, 0);
 
       users.forEach(function(twitterID) {
         test.ok(stream.hasUser(twitterID));

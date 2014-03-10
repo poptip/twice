@@ -123,6 +123,7 @@ pool.on('reply', function(data) {
   * [SiteStream#users](#sitestreamusers)
   * [SiteStream#usersInStream](#sitestreamusersinstream)
   * [SiteStream#usersInQueue](#sitestreamusersinqueue)
+  * [SiteStream#failedToAddUsers](#sitestreamfailedtoaddusers)
   * [SiteStream#hasUser(twitterID)](#sitestreamhasusertwitterid)
   * [SiteStream#hasUserInStream(twitterID)](#sitestreamhasuserinstreamtwitterid)
   * [SiteStream#hasUserInQueue(twitterID)](#sitestreamhasuserinqueuetwitterid)
@@ -139,6 +140,7 @@ pool.on('reply', function(data) {
   * [Pool#users](#poolusers)
   * [Pool#usersInStream](#poolusersinstream)
   * [Pool#usersInQueue](#poolusersinqueue)
+  * [Pool#failedToAddUsers](#poolfailedtoaddusers)
   * [Pool#hasUser(twitterID)](#poolhasusertwitterid)
   * [Pool#hasUserInStream(twitterID)](#poolhasuserinstreamtwitterid)
   * [Pool#hasUserInQueue(twitterID)](#poolhasuserinqueuetwitterid)
@@ -562,6 +564,9 @@ List of users that are currently being listened to by the stream.
 ### SiteStream#usersInQueue
 List of users that will be added to the stream.
 
+### SiteStream#failedToAddUsers
+List of users that were not successfully added to the stream.
+
 ### SiteStream#hasUser(twitterID)
 Returns true if user is in site stream.
 
@@ -653,6 +658,9 @@ Object with user ids and usernames as keys and values respectively.
 
 ### Pool#usersInQueue
 List of users in pool which are queued to be added to a stream.
+
+### Pool#failedToAddUsers
+List of users that were not successfully added to a stream.
 
 ### Pool#hasUser(twitterID)
 Returns true if user has been added to pool.

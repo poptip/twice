@@ -57,6 +57,7 @@ exports['add users'] = {
     test.equal(pool.users.length, 0);
     test.equal(pool.usersInQueue.length, 0);
     test.equal(pool.usersInStream.length, 0);
+    test.equal(pool.failedToAddUsers.length, 0);
 
     pool.addUser('42');
 
@@ -66,6 +67,7 @@ exports['add users'] = {
     test.equal(pool.users.length, 1);
     test.equal(pool.usersInQueue.length, 1);
     test.equal(pool.usersInStream.length, 0);
+    test.equal(pool.failedToAddUsers.length, 0);
 
     pool.on('addUsersToStream', function(twitterIDs) {
       test.ok(pool.hasUser('42'));
@@ -74,6 +76,7 @@ exports['add users'] = {
       test.equal(pool.users.length, 1);
       test.equal(pool.usersInQueue.length, 0);
       test.equal(pool.usersInStream.length, 1);
+      test.equal(pool.failedToAddUsers.length, 0);
 
       test.equal(twitterIDs.length, 1);
       test.equal(twitterIDs[0], '42');
@@ -100,6 +103,7 @@ exports['add users'] = {
         test.equal(pool.users.length, users.length);
         test.equal(pool.usersInQueue.length, 0);
         test.equal(pool.usersInStream.length, users.length);
+        test.equal(pool.failedToAddUsers.length, 0);
 
         test.done();
       }
@@ -113,6 +117,7 @@ exports['add users'] = {
       test.equal(pool.users.length, 1);
       test.equal(pool.usersInQueue.length, 0);
       test.equal(pool.usersInStream.length, 1);
+      test.equal(pool.failedToAddUsers.length, 0);
 
       test.equal(pool.streams.length, 1);
 
@@ -121,11 +126,13 @@ exports['add users'] = {
       test.equal(pool.users.length, 3);
       test.equal(pool.usersInQueue.length, 2);
       test.equal(pool.usersInStream.length, 1);
+      test.equal(pool.failedToAddUsers.length, 0);
 
       pool.once('addUsersToStream', function(twitterIDs) {
         test.equal(pool.users.length, 3);
         test.equal(pool.usersInQueue.length, 0);
         test.equal(pool.usersInStream.length, 3);
+        test.equal(pool.failedToAddUsers.length, 0);
 
         test.equal(pool.streams.length, 1);
         test.equal(twitterIDs.length, 2);
