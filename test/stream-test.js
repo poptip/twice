@@ -267,7 +267,7 @@ exports['response stream receives data and then times out'] = function(test) {
     });
   });
 
-  stream.on('timeout', function() {
+  stream.once('timeout', function() {
     test.ok(retrySpy.calledWith('linear'));
     clock.restore();
     stream.destroy();
