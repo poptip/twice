@@ -24,8 +24,8 @@ var Stweam = require('stweam');
 var client = new Stweam({
   consumer_key: 'twitter',
   consumer_secret: 'API',
-  access_token_key: 'keys',
-  access_token_secret: 'go here'
+  token: 'keys',
+  token_secret: 'go here'
 });
 var pool = client.createPool();
 
@@ -281,7 +281,7 @@ Indicates a user has been withheld in certain countries.
 * `String` - Stream name.
 * `String` - Twitter handle for which the stream belongs to.
 
-Stream was disconnected for a [variety of reasons](https://dev.twitter.com/docs/streaming-apis/messages#Disconnect_messages_disconnect). For each possible reason documented, events below are also emitted.
+Stream was disconnected for a [variety of reasons](https://dev.twitter.com/streaming/overview/messages-types#disconnect_messages). For each possible reason documented, events below are also emitted.
 
 ### Event: 'shutdown'
 * `String` - Stream name.
@@ -391,7 +391,7 @@ Convenient event for listening for replies to a certain user.
 
 
 ### Stweam#createPublicStream([parameters])
-Create an instance of a [public stream](https://dev.twitter.com/docs/api/1.1/post/statuses/filter).
+Create an instance of a [public stream](https://dev.twitter.com/streaming/reference/post/statuses/filter).
 
 ### PublicStream#track(phrase)
 Track a phrase with this stream. Will reconnect stream.
@@ -409,13 +409,13 @@ The amount of phrases being tracked by this stream.
 The phrases being tracked.
 
 ### Stweam#createSampleStream([parameters])
-Create an instance of a [sample stream](https://dev.twitter.com/docs/api/1.1/get/statuses/sample). Emits random sample of public statuses.
+Create an instance of a [sample stream](https://dev.twitter.com/streaming/reference/get/statuses/sample). Emits random sample of public statuses.
 
 ### Stweam#createFirehose([parameters])
-Create an instance of a [firehose](https://dev.twitter.com/docs/api/1.1/get/statuses/firehose). Emits all public tweets. Requires special permission to use.
+Create an instance of a [firehose](https://dev.twitter.com/streaming/firehose). Emits all public tweets. Requires special permission to use.
 
 ### Stweam#createUserStream([parameters])
-Create an instance of a [user stream](https://dev.twitter.com/docs/api/2/get/user).
+Create an instance of a [user stream](https://dev.twitter.com/streaming/userstreams).
 
 ### UserStream#track(phrase)
 Track a phrase with this stream. Will reconnect stream.
@@ -544,7 +544,7 @@ User updates their profile.
 
 
 ### Stweam#createSiteStream([follow], [parameters])
-Create an instance of a site stream. `follow` can be an Array of twitter IDs to initially add to the stream when it first connects. If `follow` has more users than the allowed users to connect with, they will be queued to be added later. [See here](https://dev.twitter.com/docs/api/2b/get/site) for a list of parameters. Access is restricted.
+Create an instance of a site stream. `follow` can be an Array of twitter IDs to initially add to the stream when it first connects. If `follow` has more users than the allowed users to connect with, they will be queued to be added later. [See here](https://dev.twitter.com/streaming/sitestreams) for a list of parameters. Access is restricted.
 
 ### SiteStream#addUser(twitterID)
 Add a user to the stream.
@@ -708,131 +708,7 @@ If you don't want to buffer all of the tweets, it returns an event emitter that 
 
 # Response Objects
 
-Several events emit different response objects. Here you'll find examples of what they look like. [Go here](https://dev.twitter.com/docs/platform-objects "twitter objects") to read more details about each field in the objects.
-
-### [User](https://dev.twitter.com/docs/platform-objects/users)
-
-```js
-{
-  "id" : 92572086,
-  "screen_name" : "StudyTravelNL",
-  "verified" : false,
-  "profile_sidebar_fill_color" : "ffffff",
-  "location" : "Nijmegen, Nederland",
-  "statuses_count" : 481,
-  "default_profile" : false,
-  "contributors_enabled" : false,
-  "following" : true,
-  "geo_enabled" : true,
-  "profile_background_color" : "610e44",
-  "utc_offset" : null,
-  "time_zone" : null,
-  "name" : "StudyTravel Talen",
-  "show_all_inline_media" : false,
-  "listed_count" : 2,
-  "protected" : false,
-  "profile_background_image_url" : "http://a0.twimg.com/profile_background_images/398762728/Brochure_2012-2013.JPG",
-  "friends_count" : 101,
-  "notifications" : false,
-  "profile_link_color" : "82b7f0",
-  "is_translator" : false,
-  "profile_use_background_image" : false,
-  "description" : "Een taal beleven is meer dan studeren. Je verdiept je in de taal, cultuur en gewoonten van een ander land. Wie wil er niet op zo'n 'spraakmakende' taalreis!",
-  "profile_text_color" : "08090a",
-  "profile_image_url_https" : "https://si0.twimg.com/profile_images/1225384939/StudyTravel_Taalreizen_NL_normal.JPG",
-  "id_str" : "92572086",
-  "profile_background_image_url_https" : "https://si0.twimg.com/profile_background_images/398762728/Brochure_2012-2013.JPG",
-  "default_profile_image" : false,
-  "profile_image_url" : "http://a0.twimg.com/profile_images/1225384939/StudyTravel_Taalreizen_NL_normal.JPG",
-  "follow_request_sent" : false,
-  "lang" : "en",
-  "profile_sidebar_border_color" : "08090a",
-  "favourites_count" : 1,
-  "followers_count" : 121,
-  "url" : "http://www.studytravel.nl",
-  "created_at" : "Wed Nov 25 17:41:07 +0000 2009",
-  "profile_background_tile" : false
-}
-```
-
-### [Tweet](https://dev.twitter.com/docs/platform-objects/tweets)
-
-```js
-{
-  "entities" : {
-    "user_mentions" : [
-      {
-        "screen_name" : "espenotienenick",
-        "indices" : [0, 16],
-        "id_str" : "186170312",
-        "name" : "Esperanza Was There",
-        "id" : 186170312
-      }
-    ],
-    "hashtags" : [ ],
-    "urls" : [ ]
-  },
-  "in_reply_to_user_id" : 186170312,
-  "in_reply_to_status_id" : 217924341025869820,
-  "text" : "@espenotienenick Yo, de lo blanca que estoy, cuando me meto en el mar, parezco una linterna. jejeje",
-  "in_reply_to_user_id_str" : "186170312",
-  "place" : null,
-  "retweeted" : false,
-  "in_reply_to_screen_name" : "espenotienenick",
-  "truncated" : false,
-  "retweet_count" : 0,
-  "source" : "<a href=\"http://www.tweetdeck.com\" rel=\"nofollow\">TweetDeck</a>",
-  "coordinates" : null,
-  "geo" : null,
-  "id_str" : "217924715484946432",
-  "contributors" : null,
-  "favorited" : false,
-  "created_at" : "Wed Jun 27 10:17:55 +0000 2012",
-  "user" : {
-    "default_profile" : false,
-    "lang" : "en",
-    "profile_background_tile" : false,
-    "screen_name" : "mandolinaes",
-    "is_translator" : false,
-    "show_all_inline_media" : false,
-    "profile_sidebar_fill_color" : "ffeedc",
-    "profile_image_url_https" : "https://si0.twimg.com/profile_images/1517593937/Bcubbins_small_normal.jpg",
-    "following" : null,
-    "profile_sidebar_border_color" : "ffeedc",
-    "description" : "Stranger in a strange land. Out of this world. Mathematician. Follow your dreams no matter what. Jared Leto is my inspiration in life http://www.mandolinaes.com",
-    "default_profile_image" : false,
-    "profile_use_background_image" : true,
-    "favourites_count" : 74,
-    "friends_count" : 221,
-    "id_str" : "23666389",
-    "created_at" : "Tue Mar 10 21:59:13 +0000 2009",
-    "profile_text_color" : "500601",
-    "profile_background_image_url_https" : "https://si0.twimg.com/profile_background_images/545298383/tumblr_bea.jpg",
-    "profile_background_image_url" : "http://a0.twimg.com/profile_background_images/545298383/tumblr_bea.jpg",
-    "time_zone" : "Madrid",
-    "followers_count" : 1064,
-    "protected" : false,
-    "url" : "http://mandolinaes.tumblr.com/",
-    "profile_image_url" : "http://a0.twimg.com/profile_images/1517593937/Bcubbins_small_normal.jpg",
-    "profile_link_color" : "910c00",
-    "name" : "Beatriz",
-    "listed_count" : 53,
-    "contributors_enabled" : false,
-    "geo_enabled" : false,
-    "id" : 23666389,
-    "follow_request_sent" : null,
-    "statuses_count" : 52122,
-    "verified" : false,
-    "notifications" : null,
-    "utc_offset" : 3600,
-    "profile_background_color" : "070d1a",
-    "location" : "Spain"
-  },
-  "id" : 217924715484946430,
-  "in_reply_to_status_id_str" : "217924341025869824"
-}
-```
-
+Several events emit different response objects. You'll find examples of what they look like and what each field represents [here](https://dev.twitter.com/overview/api "twitter objects").
 
 # Tests
 Tests are written with [nodeunit](https://github.com/caolan/nodeunit)
@@ -842,9 +718,7 @@ npm test
 ```
 
 # Links
-* https://dev.twitter.com/docs/streaming-apis
-* https://dev.twitter.com/docs/streaming-apis/connecting
-* https://dev.twitter.com/docs/streaming-apis/messages
-* https://dev.twitter.com/docs/streaming-apis/parameters
-* https://dev.twitter.com/docs/platform-objects
-* https://dev.twitter.com/docs/twitter-ids-json-and-snowflake
+
+* https://dev.twitter.com/streaming/overview
+* https://dev.twitter.com/overview/api
+* https://dev.twitter.com/overview/general/things-every-developer-should-know
