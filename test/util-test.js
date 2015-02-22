@@ -99,3 +99,11 @@ exports['create param methods'] = {
     }
   }
 };
+
+exports['clone object'] = function(test) {
+  var a = { a: 1, b: 2 };
+  var b = utils.clone(a);
+  test.deepEqual(a, b);
+  test.notEqual(a, b);
+  test.done();
+};

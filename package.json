@@ -19,8 +19,7 @@
     "eventyoshi": "^0.1.4",
     "jstream": "^0.2.0",
     "request": "^2.36.0",
-    "timequeue": "^0.2.0",
-    "underscore": "^1.6.0"
+    "timequeue": "^0.2.0"
   },
   "devDependencies": {
     "nodeunit": "*",
