@@ -1,6 +1,6 @@
-var Stweam = require('..');
+var Stweam    = require('..');
 var MAX_COUNT = require('../lib/constants').MAX_TIMELINE_COUNT;
-var spy = require('sinon').spy;
+var spy       = require('sinon').spy;
 
 
 /**

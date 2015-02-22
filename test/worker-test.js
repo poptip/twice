@@ -1,7 +1,7 @@
 var EventEmitter = require('events').EventEmitter;
-var Stweam = require('..');
-var worker = require('../lib/worker');
-var constants = require('../lib/constants');
+var Stweam       = require('..');
+var worker       = require('../lib/worker');
+var constants    = require('../lib/constants');
 
 
 exports['buffered request'] = {

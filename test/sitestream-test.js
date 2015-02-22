@@ -1,6 +1,6 @@
-var Stweam = require('..');
+var Stweam     = require('..');
 var SiteStream = require('../lib/sitestream');
-var spy = require('sinon').spy;
+var spy        = require('sinon').spy;
 
 /**
  * Mock POST/GET requests of site streams and the connection functions.

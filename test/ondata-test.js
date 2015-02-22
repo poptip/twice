@@ -1,8 +1,8 @@
-/*jshint quotmark:false, es5:true */
-var ondata = require('../lib/ondata');
-var constants = require('../lib/constants');
+/*jshint maxlen: false */
+var ondata       = require('../lib/ondata');
+var constants    = require('../lib/constants');
 var EventEmitter = require('events').EventEmitter;
-var spy = require('sinon').spy;
+var spy          = require('sinon').spy;
 
 
 var data;

@@ -1,12 +1,12 @@
-var utils = require('../lib/utils');
+var util         = require('../lib/util');
 var PublicStream = require('../lib/publicstream');
-var sinon = require('sinon');
-var spy = sinon.spy;
+var sinon        = require('sinon');
+var spy          = sinon.spy;
 
 
 exports['create status code error'] = {
   'known error': function(test) {
-    var err = utils.createStatusCodeError(401);
+    var err = util.createStatusCodeError(401);
     test.ok(err instanceof Error);
     test.equal(err.message,
       'Unauthorized - HTTP authentication failed due to invalid OAuth request.'
@@ -16,7 +16,7 @@ exports['create status code error'] = {
     test.done();
   },
   'unknown error': function(test) {
-    var err = utils.createStatusCodeError(42);
+    var err = util.createStatusCodeError(42);
     test.ok(err instanceof Error);
     test.equal(err.message, 'There was an unknown error.');
     test.equal(err.type, 'http');
@@ -102,7 +102,7 @@ exports['create param methods'] = {
 
 exports['clone object'] = function(test) {
   var a = { a: 1, b: 2 };
-  var b = utils.clone(a);
+  var b = util.clone(a);
   test.deepEqual(a, b);
   test.notEqual(a, b);
   test.done();

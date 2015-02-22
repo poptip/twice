@@ -1,4 +1,4 @@
-var Stweam = require('..');
+var Stweam     = require('..');
 var SiteStream = require('../lib/sitestream');
 
 

@@ -1,9 +1,9 @@
 var EventEmitter = require('events').EventEmitter;
-var Stream = require('../lib/stream');
-var utils = require('../lib/utils');
-var through = require('through');
-var sinon = require('sinon');
-var spy = sinon.spy;
+var Stream       = require('../lib/stream');
+var util         = require('../lib/util');
+var through      = require('through');
+var sinon        = require('sinon');
+var spy          = sinon.spy;
 
 
 exports['create a stream with no params'] = function(test) {
@@ -118,7 +118,7 @@ exports['response stream non 200 status code'] = function(test) {
   var client = {
     get: function() {
       var ee = new EventEmitter();
-      var err = new utils.createStatusCodeError(401);
+      var err = new util.createStatusCodeError(401);
       process.nextTick(ee.emit.bind(ee, 'responseError', err));
       return ee;
     }
