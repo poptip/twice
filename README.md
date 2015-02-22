@@ -359,37 +359,37 @@ The host the stream was connected to became overloaded and streams were disconne
 All streams and timelines will emit the following events.
 
 ### Event: 'tweet'
-* [tweet](#tweetj)
+* [tweet][tweet]
 
 Someone tweets!
 
 ### Event: 'tweet:retweet'
-* [tweet](#tweet)
+* [tweet][tweet]
 
-Someone retweeted a tweet. Only emitted when it's a retweet through the API and not a manual retweet ie `RT: hello world`.
+Someone retweets.
 
 ### Event: 'tweet:retweet:`retweeted_status.id`'
-* [tweet](#tweet)
+* [tweet][tweet]
 
 Convenient event for listening for retweets of a certain tweet.
 
 ### Event: 'tweet:reply'
-* [tweet](#tweet)
+* [tweet][tweet]
 
 Someone replied to a tweet.
 
 ### Event: 'tweet:reply:`in_reply_to_status_id`'
-* [tweet](#tweet)
+* [tweet][tweet]
 
 Convenient event for listening for replies of a certain tweet.
 
 ### Event: 'tweet:mention'
-* [tweet](#tweet)
+* [tweet][tweet]
 
 Someone replied to another user. Emitted even if the user is mentioned manually.
 
 ### Event: 'tweet:mention:`in_reply_to_screen_name`'
-* [tweet](#tweet)
+* [tweet][tweet]
 
 Convenient event for listening for replies to a certain user.
 
@@ -454,38 +454,38 @@ The list of twitter IDs being followed.
 Upon establishing a User Stream connection, Twitter will send a preamble before starting regular message delivery. This preamble contains a list of the user's friends. 
 
 ### Event: 'block'
-* [user](#user) - Current user.
-* [user](#user) - Blocked user.
+* [user][user] - Current user.
+* [user][user] - Blocked user.
 * `Date` - Created at date.
 
 User blocks someone.
 
 ### Event: 'unblock'
-* [user](#user) - Current user.
-* [user](#user) - Blocked user.
+* [user][user] - Current user.
+* [user][user] - Blocked user.
 * `Date` - Created at date.
 
 User removes a block.
 
 ### Event: 'favorite'
-* [user](#user) - User that favorited the tweet.
-* [user](#user) - Author of the tweet.
-* [tweet](#tweet) - Favorited tweet.
+* [user][user] - User that favorited the tweet.
+* [user][user] - Author of the tweet.
+* [tweet][tweet] - Favorited tweet.
 * `Date` - Created at date.
 
 User favorites a tweet.
 
 ### Event: 'unfavorite'
-* [user](#user) - User that favorited the tweet.
-* [user](#user) - Author of the tweet.
-* [tweet](#tweet) - Favorited tweet.
+* [user][user] - User that favorited the tweet.
+* [user][user] - Author of the tweet.
+* [tweet][tweet] - Favorited tweet.
 * `Date` - Created at date.
 
 User unfavorites a tweet.
 
 ### Event: 'follow'
-* [user](#user) - Following user.
-* [user](#user) - Followed user.
+* [user][user] - Following user.
+* [user][user] - Followed user.
 * `Date` - Created at date.
 
 User follows someone.
@@ -509,39 +509,39 @@ User deletes a list.
 User edits a list.
 
 ### Event: 'list_member_add'
-* [user](#user) - Adding user.
-* [user](#user) - Added user.
+* [user][user] - Adding user.
+* [user][user] - Added user.
 * `list`
 * `Date` - Created at date.
 
 User adds someone to a list.
 
 ### Event: 'list_member_remove'
-* [user](#user) - Removing user.
-* [user](#user) - Removed user.
+* [user][user] - Removing user.
+* [user][user] - Removed user.
 * `list`
 * `Date` - Created at date.
 
 User removes someone from a list.
 
 ### Event: 'list_user_subscribe'
-* [user](#user) - Subscribing user.
-* [user](#user) - List owner.
+* [user][user] - Subscribing user.
+* [user][user] - List owner.
 * `list`
 * `Date` - Created at date.
 
 User subscribes to a list.
 
 ### Event: 'list_user_unsubscribe'
-* [user](#user) - Unsubscribing user.
-* [user](#user) - List owner.
+* [user][user] - Unsubscribing user.
+* [user][user] - List owner.
 * `list`
 * `Date` - Created at date.
 
 User unsubscribes from a list.
 
 ### Event: 'user_update'
-* [user](#user) - New profile data.
+* [user][user] - New profile data.
 * `Date` - Created at date.
 
 User updates their profile.
@@ -612,7 +612,7 @@ For example, the event `friends` would be emitted like this: `function (friends,
 In addition, an event with the user's Twittter ID appended to the event name is emitted. For user with an ID of `1234` the event `friends:1234` would be emitted with `friends` as the first argument.
 
 ### Event: 'unique:tweet'
-* [tweet](#tweet)
+* [tweet][tweet]
 
 A unique Tweet. Tweets are compared for uniqueness by the `id_str` property. The rest of the Tweet events will also have an alias with `unique:` prepended if they are unique. For example: `unique:tweet:retweet`.
 
@@ -713,6 +713,9 @@ If you don't want to buffer all of the tweets, it returns an event emitter that 
 # Response Objects
 
 Several events emit different response objects. You'll find examples of what they look like and what each field represents [here](https://dev.twitter.com/overview/api "twitter objects").
+
+[tweet]: https://dev.twitter.com/overview/api/tweets
+[user]: https://dev.twitter.com/overview/api/users
 
 # Tests
 Tests are written with [nodeunit](https://github.com/caolan/nodeunit)
