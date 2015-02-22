@@ -1,13 +1,13 @@
-# stweam [![Build Status](https://secure.travis-ci.org/poptip/stweam.png)](http://travis-ci.org/poptip/stweam)
+# twice [![Build Status](https://secure.travis-ci.org/poptip/twice.png)](http://travis-ci.org/poptip/twice)
 
-![tweety](https://github.com/poptip/stweam/raw/master/tweety.gif)
+![twitter](https://github.com/poptip/twice/raw/master/Twitter_logo_blue.png)
 
-This module contains several data structures that ease working with twitter streams. In particular, a site stream pool is available that auto manages several site streams as needed and respects twitter's request limits. Includes stream reconnecting with exponential backoff to keep your streams running forever.
+This module contains several data structures that ease working with [twitter streams](https://dev.twitter.com/streaming/overview). In particular, [site streams](https://dev.twitter.com/streaming/sitestreams). A pool is available that auto manages several site streams as needed and respects twitter's request limits. Includes stream reconnecting with exponential backoff to keep your streams running forever.
 
 # Features
 
 * Limits requests to a set amount per second to avoid being rate limited.
-* Reconnect streams on timeout, errors, or disconnects.
+* Reconnect streams on timeout, errors, or disconnects to keep streams running forever.
 * Back off linearly or exponentially depending on error type when reconnecting.
 * Respect Twitter's limits when adding users to a site stream.
 * Make sure users are added to site streams with an extra request.
@@ -23,9 +23,9 @@ https://dev.twitter.com/streaming/sitestreams#applyingforaccess
 # Usage
 
 ```js
-var Stweam = require('stweam');
+var Twice = require('twice');
 
-var client = new Stweam({
+var client = new Twice({
   consumer_key: 'twitter',
   consumer_secret: 'API',
   token: 'keys',
@@ -48,7 +48,7 @@ pool.on('reply', function(data) {
 
 # API
 
-* [new Stweam(credentials)](#new-stweam)
+* [new Twice(credentials)](#new-twice)
 * [Stream](#stream)
   * [Stream#connected](#stream-connected)
   * [Stream#paused](#stream-paused)
@@ -90,14 +90,14 @@ pool.on('reply', function(data) {
   * [Event: 'tweet:reply:`in_reply_to_status_id`'](#event-tweetreplyin_reply_to_status_id)
   * [Event: 'tweet:mention'](#event-tweetmention)
   * [Event: 'tweet:mention:`in_reply_to_screen_name`'](#event-tweetmentionin_reply_to_screen_name)
-* [Stweam#createPublicStream([parameters])](#stweamcreatepublicstreamparameters)
+* [Twice#createPublicStream([parameters])](#twicecreatepublicstreamparameters)
   * [PublicStream#track(value)](#publicstreamtrackphrase)
   * [PublicStream#untrack(value)](#publicstreamuntrackphrase)
   * [PublicStream#tracking(value)](#publicstreamtrackingphrase)
   * [PublicStream#trackCount](#publicstreamtrackcount)
-* [Stweam#createSampleStream([parameters])](#stweamcreatesamplestreamparameters)
-* [Stweam#createFirehose([parameters])](#stweamcreatefirehoseparameters)
-* [Stweam#createUserStream([parameters])](#stweamcreateuserstreamparameters)
+* [Twice#createSampleStream([parameters])](#twicecreatesamplestreamparameters)
+* [Twice#createFirehose([parameters])](#twicecreatefirehoseparameters)
+* [Twice#createUserStream([parameters])](#twicecreateuserstreamparameters)
   * [UserStream#track(value)](#userstreamtrackvalue)
   * [UserStream#untrack(value)](#userstreamuntrackvalue)
   * [UserStream#tracking(value)](#publicstreamtrackingvalue)
@@ -120,7 +120,7 @@ pool.on('reply', function(data) {
   * [Event: 'list_user_subscribe'](#event-list_user_subscribe)
   * [Event: 'list_user_unsubscribe'](#event-list_user_unsubscribe)
   * [Event: 'user_update'](#event-user_update)
-* [Stweam#createSiteStream([follow], [parameters])](#stweamcreatesitestreamfollow-parameters)
+* [Twice#createSiteStream([follow], [parameters])](#twicecreatesitestreamfollow-parameters)
   * [SiteStream#addUser(twitterID)](#sitestreamaddusertwitterid)
   * [SiteStream#addUsers(twitterIDs)](#sitestreamadduserstwitterids)
   * [SiteStream#removeUser(twitterID, [callback(err)])](#sitestreamremoveusertwitterid-callbackerr)
@@ -137,7 +137,7 @@ pool.on('reply', function(data) {
   * [Event: 'addUsersToStream'](#event-adduserstostream)
   * [Event: 'failedToAddUsers'](#event-failedtoaddusers)
   * [Event: 'removeUser'](#event-removeuser)
-* [Stweam#createPool(parameters)](#stweamcreatepoolparameterss)
+* [Twice#createPool(parameters)](#twicecreatepoolparameterss)
   * [Pool#addUser(twitterID)](#pooladdusertwitterid)
   * [Pool#addUsers(twitterIDs)](#pooladduserstwitterids)
   * [Pool#removeUser(twitterID)](#poolremoveusertwitterid)
@@ -154,11 +154,11 @@ pool.on('reply', function(data) {
   * [Pool#createSampleStream([parameters])](#poolcreatesamplestreamparameters)
   * [Pool#createFirehose([parameters])](#poolcreatefirehoseparameters)
   * [Pool#createUserStream([parameters])](#poolcreateuserstreamparameters)
-* [Stweam#get(options, callback(err, data))](#stweamgetoptions-callbackerr-data)
-* [Stweam#post(url, body, callback(err, data))](#stweamposturl-body-callbackerr-data)
-* [Stweam#getTimeline(url, [parameters], [callback(err, tweets)])](#stweamgettimelineurl-parameters-callbackerr-tweets)
+* [Twice#get(options, callback(err, data))](#twicegetoptions-callbackerr-data)
+* [Twice#post(url, body, callback(err, data))](#twiceposturl-body-callbackerr-data)
+* [Twice#getTimeline(url, [parameters], [callback(err, tweets)])](#twicegettimelineurl-parameters-callbackerr-tweets)
 
-### new Stweam(credentials)
+### new Twice(credentials)
 
 First argument must be an object with oauth credentials.
 
@@ -176,7 +176,7 @@ All methods added are specifically designed to facilitate usage of Twitter strea
 All streams have a `connected` key indicating if the stream is currently connected. Constructors last argument can be an object of parameters.
 
 ### Stream
-Stweam creates several types of streams. They all have the following properties, methods, and events.
+Twice creates several types of streams. They all have the following properties, methods, and events.
 
 ### Stream#connected
 Wether or not the stream is connected.
@@ -394,7 +394,7 @@ Someone replied to another user. Emitted even if the user is mentioned manually.
 Convenient event for listening for replies to a certain user.
 
 
-### Stweam#createPublicStream([parameters])
+### Twice#createPublicStream([parameters])
 Create an instance of a [public stream](https://dev.twitter.com/streaming/reference/post/statuses/filter).
 
 ### PublicStream#track(phrase)
@@ -412,13 +412,13 @@ The amount of phrases being tracked by this stream.
 ### PublicStream#trackList
 The phrases being tracked.
 
-### Stweam#createSampleStream([parameters])
+### Twice#createSampleStream([parameters])
 Create an instance of a [sample stream](https://dev.twitter.com/streaming/reference/get/statuses/sample). Emits random sample of public statuses.
 
-### Stweam#createFirehose([parameters])
+### Twice#createFirehose([parameters])
 Create an instance of a [firehose](https://dev.twitter.com/streaming/firehose). Emits all public tweets. Requires special permission to use.
 
-### Stweam#createUserStream([parameters])
+### Twice#createUserStream([parameters])
 Create an instance of a [user stream](https://dev.twitter.com/streaming/userstreams).
 
 ### UserStream#track(phrase)
@@ -547,7 +547,7 @@ User unsubscribes from a list.
 User updates their profile.
 
 
-### Stweam#createSiteStream([follow], [parameters])
+### Twice#createSiteStream([follow], [parameters])
 Create an instance of a site stream. `follow` can be an Array of twitter IDs to initially add to the stream when it first connects. If `follow` has more users than the allowed users to connect with, they will be queued to be added later. [See here](https://dev.twitter.com/streaming/sitestreams) for a list of parameters. Access is restricted.
 
 ### SiteStream#addUser(twitterID)
@@ -639,7 +639,7 @@ After a call to `SiteStream#remove()`, either this or an `error` event will be e
 
 A user has revoked access to your app.
 
-### Stweam#createPool([parameters])
+### Twice#createPool([parameters])
 Creates an instance of a site stream pool. Automatically creates and removes site streams as needed respecting twitter's request demands. `parameters` is passed to the created site streams.
 
 ### Pool#addUser(twitterID)
@@ -699,14 +699,14 @@ Create an instance of a user stream and route its events to the pool.
 ### Events
 Pool instances are proxied all events from all underlying site stream instances.
 
-### Stweam#get(options, callback(err, data))
+### Twice#get(options, callback(err, data))
 Make a GET request. `options` can be a url or a [request](https://github.com/mikeal/request) options. 
 
-### Stweam#post(url, [body], callback(err, data))
+### Twice#post(url, [body], callback(err, data))
 Make a POST request. `body` can be a string or an object.
 
-### Stweam#getTimeline(url, [parameters], [callback(err, tweets)])
-Stweam provides added sugar for getting timelines. The `parameters.count` option is capped at 200. But if it's above that, stweam will keep requesting more tweets until the given count is reached.
+### Twice#getTimeline(url, [parameters], [callback(err, tweets)])
+Twice provides added sugar for getting timelines. The `parameters.count` option is capped at 200. But if it's above that, Twice will keep requesting more tweets until the given count is reached.
 
 If you don't want to buffer all of the tweets, it returns an event emitter that will emit 
 

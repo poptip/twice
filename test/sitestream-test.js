@@ -1,4 +1,4 @@
-var Stweam     = require('..');
+var Twice      = require('..');
 var SiteStream = require('../lib/sitestream');
 var spy        = require('sinon').spy;
 
@@ -12,7 +12,7 @@ var spy        = require('sinon').spy;
  * @return {SiteStream}
  */
 function createSiteStream(users, connected) {
-  var client = new Stweam();
+  var client = new Twice();
   client.get = client.post = function request(uri, params, callback) {
     callback = callback || params;
     process.nextTick(callback.bind(null, null));

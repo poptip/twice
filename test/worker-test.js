@@ -1,5 +1,5 @@
 var EventEmitter = require('events').EventEmitter;
-var Stweam       = require('..');
+var Twice        = require('..');
 var worker       = require('../lib/worker');
 var constants    = require('../lib/constants');
 
@@ -8,7 +8,7 @@ exports['buffered request'] = {
   'success': function(test) {
     test.expect(2);
 
-    var client = new Stweam();
+    var client = new Twice();
     client._request.get = function(options, callback) {
       test.deepEqual(options, {
         url: 'http://hello.im',
@@ -32,7 +32,7 @@ exports['buffered request'] = {
   'site stream POST request': function(test) {
     test.expect(2);
 
-    var client = new Stweam();
+    var client = new Twice();
     var resp = 'ok';
     client._request.post = function(options, callback) {
       test.deepEqual(options, {
@@ -55,7 +55,7 @@ exports['buffered request'] = {
   'error': function(test) {
     test.expect(4);
 
-    var client = new Stweam();
+    var client = new Twice();
     client._request.get = function(options, callback) {
       var req = new EventEmitter();
       var err = new Error('something went wrong');
@@ -79,7 +79,7 @@ exports['buffered request'] = {
   'status code error': function(test) {
     test.expect(4);
 
-    var client = new Stweam();
+    var client = new Twice();
     client._request.get = function(options, callback) {
       var req = new EventEmitter();
       process.nextTick(callback.bind(null, null, { statusCode: 500 }));
@@ -102,7 +102,7 @@ exports['buffered request'] = {
   'Twitter error': function(test) {
     test.expect(5);
 
-    var client = new Stweam();
+    var client = new Twice();
     var resp = {
       errors: [
         { message: 'we dont like you' }
@@ -132,7 +132,7 @@ exports['buffered request'] = {
 
 
 exports['streaming request'] = function(test) {
-  var client = new Stweam();
+  var client = new Twice();
   client._request.post = function(options) {
     test.equal(options, 'http://google.com');
     var req = new EventEmitter();

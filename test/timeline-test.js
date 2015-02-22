@@ -1,4 +1,4 @@
-var Stweam    = require('..');
+var Twice     = require('..');
 var MAX_COUNT = require('../lib/constants').MAX_TIMELINE_COUNT;
 var spy       = require('sinon').spy;
 
@@ -42,7 +42,7 @@ function fakeTweets(amount, retweets) {
  * Mocks the `get` method in a client so that it calls
  * the `callback` with the amount of tweets specified.
  *
- * @param {Stweam} client
+ * @param {Twice} client
  * @param {Object} expectParams
  * @param {Number} tweets
  * @param {Number} retweets
@@ -60,7 +60,7 @@ function mockGet(client, test, expectParams, tweets, retweets) {
 
 
 exports['use the event emitter'] = function(test) {
-  var client = new Stweam();
+  var client = new Twice();
   mockGet(client, test, { include_rts: true }, 42, 0);
 
   var ee = client.getTimeline('timeline');
@@ -75,7 +75,7 @@ exports['use the event emitter'] = function(test) {
 
 
 exports['use a callback'] = function(test) {
-  var client = new Stweam();
+  var client = new Twice();
   mockGet(client, test, { include_rts: true }, 42, 0);
 
   client.getTimeline('timeline', function(err, tweets) {
@@ -87,7 +87,7 @@ exports['use a callback'] = function(test) {
 
 
 exports['set include_rts to true'] = function(test) {
-  var client = new Stweam();
+  var client = new Twice();
   mockGet(client, test, { include_rts: true }, 20, 10);
 
   var params = { include_rts: true };
@@ -107,7 +107,7 @@ exports['set include_rts to true'] = function(test) {
 
 
 exports['set include_rts to false'] = function(test) {
-  var client = new Stweam();
+  var client = new Twice();
   mockGet(client, test, { include_rts: true }, 20, 10);
 
   var params = { include_rts: false };
@@ -127,7 +127,7 @@ exports['set include_rts to false'] = function(test) {
 
 
 exports['over max amount of tweets per request'] = function(test) {
-  var  client = new Stweam();
+  var  client = new Twice();
   mockGet(client, test, {
     include_rts: true,
     count: MAX_COUNT
@@ -155,7 +155,7 @@ exports['over max amount of tweets per request'] = function(test) {
 
 
 exports['exactly max amount of tweets per request'] = function(test) {
-  var  client = new Stweam();
+  var  client = new Twice();
   mockGet(client, test, {
     include_rts: true,
     count: MAX_COUNT

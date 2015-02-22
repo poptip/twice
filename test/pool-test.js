@@ -1,10 +1,10 @@
-var Stweam     = require('..');
+var Twice      = require('..');
 var SiteStream = require('../lib/sitestream');
 
 
 // Creates a mocked pool from a mocked client.
 function createPool() {
-  var client = new Stweam();
+  var client = new Twice();
   client.createSiteStream = function(twitterIDs) {
     var stream = new SiteStream(client);
     stream.connected = true;

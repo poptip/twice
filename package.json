@@ -1,5 +1,5 @@
 {
-  "name": "stweam",
+  "name": "twice",
   "version": "0.2.0",
   "description": "Streaming client specifically designed for the Twitter streaming API",
   "main": "./lib/index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/poptip/stweam.git"
+    "url": "git://github.com/poptip/twice.git"
   },
   "keywords": [
     "api",
