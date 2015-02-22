@@ -16,16 +16,16 @@
     "twitter"
   ],
   "dependencies": {
-    "eventyoshi": "~0.1.4",
-    "jstream": "~0.2.0",
-    "request": "~2.36.0",
-    "timequeue": "~0.2.0",
-    "underscore": "~1.6.0"
+    "eventyoshi": "^0.1.4",
+    "jstream": "^0.2.0",
+    "request": "^2.36.0",
+    "timequeue": "^0.2.0",
+    "underscore": "^1.6.0"
   },
   "devDependencies": {
-    "nodeunit": "~0.8.6",
+    "nodeunit": "*",
     "sinon": "*",
-    "through": "~2.1.0"
+    "through": "^2.1.0"
   },
   "author": "PopTip (http://poptip.com)",
   "private": true
