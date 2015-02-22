@@ -1,4 +1,4 @@
-# stweam
+# stweam [![Build Status](https://secure.travis-ci.org/poptip/stweam.png)](http://travis-ci.org/poptip/stweam)
 
 ![tweety](https://github.com/poptip/stweam/raw/master/tweety.gif)
 
