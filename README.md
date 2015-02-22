@@ -13,8 +13,12 @@ This module contains several data structures that ease working with twitter stre
 * Make sure users are added to site streams with an extra request.
 * If there is an error adding a user to a site stream, retries with exponential backoff.
 * Automatically manage a pool of site streams creating new streams as needed.
+  * https://dev.twitter.com/streaming/sitestreams#Limits
 * Convenient events emitted for various tweet types and stream status updates.
 * Uses a streaming JSON parser for faster less memory hogging processing.
+
+Note, connecting to site streams and the firehose require special access, to apply go to
+https://dev.twitter.com/streaming/sitestreams#applyingforaccess
 
 # Usage
 
