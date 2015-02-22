@@ -26,6 +26,5 @@
     "sinon": "*",
     "through": "^2.1.0"
   },
-  "author": "PopTip (http://poptip.com)",
-  "private": true
+  "author": "PopTip (http://poptip.com)"
 }
